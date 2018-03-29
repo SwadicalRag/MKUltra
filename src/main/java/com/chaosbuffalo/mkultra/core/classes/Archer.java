@@ -1,10 +1,8 @@
 package com.chaosbuffalo.mkultra.core.classes;
 
-import com.chaosbuffalo.mkultra.MKUltra;
 import com.chaosbuffalo.mkultra.api.ArmorClass;
 import com.chaosbuffalo.mkultra.api.BaseAbility;
 import com.chaosbuffalo.mkultra.api.IArmorClass;
-import com.chaosbuffalo.mkultra.api.MKUltraPlugin;
 import com.chaosbuffalo.mkultra.core.CoreClass;
 import com.chaosbuffalo.mkultra.core.abilities.*;
 import com.chaosbuffalo.mkultra.init.ModItems;
@@ -14,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@MKUltraPlugin(modid = MKUltra.MODID)
 public class Archer extends CoreClass {
 
     public static final List<BaseAbility> abilities = new ArrayList<>(5);
