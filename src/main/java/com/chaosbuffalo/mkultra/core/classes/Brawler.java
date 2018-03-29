@@ -1,16 +1,18 @@
 package com.chaosbuffalo.mkultra.core.classes;
 
-import com.chaosbuffalo.mkultra.core.BaseAbility;
-import com.chaosbuffalo.mkultra.core.BaseClass;
+import com.chaosbuffalo.mkultra.api.BaseAbility;
+import com.chaosbuffalo.mkultra.api.BaseClass;
+import com.chaosbuffalo.mkultra.api.IArmorClass;
+import com.chaosbuffalo.mkultra.core.CoreClass;
 import com.chaosbuffalo.mkultra.core.abilities.*;
-import com.chaosbuffalo.mkultra.core.ArmorClass;
+import com.chaosbuffalo.mkultra.api.ArmorClass;
 import com.chaosbuffalo.mkultra.init.ModItems;
 import net.minecraft.item.Item;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Brawler extends BaseClass {
+public class Brawler extends CoreClass {
 
     public static final List<BaseAbility> abilities = new ArrayList<>(5);
 
@@ -27,7 +29,7 @@ public class Brawler extends BaseClass {
     }
 
     @Override
-    public ArmorClass getArmorClass() {
+    public IArmorClass getArmorClass() {
         return ArmorClass.MEDIUM;
     }
 

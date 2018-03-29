@@ -1,6 +1,6 @@
 package com.chaosbuffalo.mkultra.item;
 
-import com.chaosbuffalo.mkultra.core.IPlayerData;
+import com.chaosbuffalo.mkultra.api.IPlayerData;
 import com.chaosbuffalo.mkultra.core.PlayerDataProvider;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;

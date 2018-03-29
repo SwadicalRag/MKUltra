@@ -1,9 +1,9 @@
 package com.chaosbuffalo.mkultra.event;
 
-import com.chaosbuffalo.mkultra.core.IPlayerData;
+import com.chaosbuffalo.mkultra.api.IPlayerData;
 import com.chaosbuffalo.mkultra.core.PlayerDataProvider;
 import com.chaosbuffalo.mkultra.item.ItemHelper;
-import com.chaosbuffalo.mkultra.item.interfaces.IExtendedReach;
+import com.chaosbuffalo.mkultra.api.IExtendedReach;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;

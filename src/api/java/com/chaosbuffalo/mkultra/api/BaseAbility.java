@@ -1,8 +1,5 @@
-package com.chaosbuffalo.mkultra.core;
+package com.chaosbuffalo.mkultra.api;
 
-import com.chaosbuffalo.mkultra.GameConstants;
-import com.chaosbuffalo.mkultra.effects.Targeting;
-import com.chaosbuffalo.mkultra.utils.RayTraceUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -18,7 +15,7 @@ public abstract class BaseAbility extends IForgeRegistryEntry.Impl<BaseAbility> 
 
     public static final int ACTIVE_ABILITY = 0;
     public static final int TOGGLE_ABILITY = 1;
-    
+
     private ResourceLocation abilityId;
 
     public BaseAbility(String domain, String id) {

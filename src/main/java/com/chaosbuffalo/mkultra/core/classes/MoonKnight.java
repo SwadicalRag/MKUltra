@@ -1,8 +1,7 @@
 package com.chaosbuffalo.mkultra.core.classes;
 
-import com.chaosbuffalo.mkultra.core.ArmorClass;
-import com.chaosbuffalo.mkultra.core.BaseAbility;
-import com.chaosbuffalo.mkultra.core.BaseClass;
+import com.chaosbuffalo.mkultra.api.*;
+import com.chaosbuffalo.mkultra.core.CoreClass;
 import com.chaosbuffalo.mkultra.core.abilities.*;
 import com.chaosbuffalo.mkultra.init.ModItems;
 import net.minecraft.item.Item;
@@ -13,7 +12,7 @@ import java.util.List;
 /**
  * Created by Jacob on 3/24/2018.
  */
-public class MoonKnight extends BaseClass {
+public class MoonKnight extends CoreClass {
 
     private static final List<BaseAbility> abilities = new ArrayList<>(5);
 
@@ -71,7 +70,7 @@ public class MoonKnight extends BaseClass {
     }
 
     @Override
-    public ArmorClass getArmorClass() {
+    public IArmorClass getArmorClass() {
         return ArmorClass.HEAVY;
     }
 

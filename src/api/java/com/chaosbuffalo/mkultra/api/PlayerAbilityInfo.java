@@ -1,6 +1,5 @@
-package com.chaosbuffalo.mkultra.core;
+package com.chaosbuffalo.mkultra.api;
 
-import com.chaosbuffalo.mkultra.GameConstants;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 

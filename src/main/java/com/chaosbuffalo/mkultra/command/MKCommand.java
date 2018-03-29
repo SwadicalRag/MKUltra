@@ -1,6 +1,9 @@
 package com.chaosbuffalo.mkultra.command;
 
 import com.chaosbuffalo.mkultra.MKUltra;
+import com.chaosbuffalo.mkultra.api.GameConstants;
+import com.chaosbuffalo.mkultra.api.IPlayerData;
+import com.chaosbuffalo.mkultra.api.PlayerAttributes;
 import com.chaosbuffalo.mkultra.core.*;
 import com.chaosbuffalo.mkultra.network.ModGuiHandler;
 import com.chaosbuffalo.mkultra.network.packets.server.ForceOpenClientGUIPacket;
@@ -158,7 +161,7 @@ public class MKCommand extends CommandTreeBase {
             String type = args[0].toLowerCase();
 
             if (type.equals("reset")) {
-                data.activateClass(ClassData.INVALID_CLASS);
+                data.activateClass(GameConstants.INVALID_CLASS);
                 sender.sendMessage(new TextComponentString("Class reset"));
             } else if (type.equals("switch")) {
                 sender.sendMessage(new TextComponentString("Opening class switch GUI"));

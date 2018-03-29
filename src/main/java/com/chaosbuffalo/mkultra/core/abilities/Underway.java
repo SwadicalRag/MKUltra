@@ -1,13 +1,12 @@
 package com.chaosbuffalo.mkultra.core.abilities;
 
-import com.chaosbuffalo.mkultra.GameConstants;
+import com.chaosbuffalo.mkultra.api.GameConstants;
 import com.chaosbuffalo.mkultra.MKUltra;
-import com.chaosbuffalo.mkultra.core.BaseAbility;
-import com.chaosbuffalo.mkultra.core.IPlayerData;
+import com.chaosbuffalo.mkultra.api.BaseAbility;
+import com.chaosbuffalo.mkultra.api.IPlayerData;
 import com.chaosbuffalo.mkultra.effects.AreaEffectBuilder;
 import com.chaosbuffalo.mkultra.effects.SpellCast;
-import com.chaosbuffalo.mkultra.effects.Targeting;
-import com.chaosbuffalo.mkultra.effects.spells.MoonTrancePotion;
+import com.chaosbuffalo.mkultra.api.Targeting;
 import com.chaosbuffalo.mkultra.effects.spells.ParticlePotion;
 import com.chaosbuffalo.mkultra.effects.spells.UnderwayPotion;
 import com.chaosbuffalo.mkultra.fx.ParticleEffects;

@@ -1,7 +1,8 @@
 package com.chaosbuffalo.mkultra.core;
 
-import com.chaosbuffalo.mkultra.GameConstants;
+import com.chaosbuffalo.mkultra.api.GameConstants;
 import com.chaosbuffalo.mkultra.MKUltra;
+import com.chaosbuffalo.mkultra.api.*;
 import com.chaosbuffalo.mkultra.item.ManaRegenIdol;
 import com.chaosbuffalo.mkultra.log.Log;
 import com.chaosbuffalo.mkultra.network.packets.client.PlayerSyncRequestPacket;
@@ -57,7 +58,7 @@ public class PlayerData implements IPlayerData {
     private Map<ResourceLocation, PlayerAbilityInfo> abilityInfoMap = new HashMap<>(5);
     private Set<ItemArmor.ArmorMaterial> alwaysAllowedArmorMaterials = new HashSet<>();
 
-    public PlayerData(EntityPlayer player) {
+    PlayerData(EntityPlayer player) {
         this.player = player;
         regenTime = 0;
         if (isServerSide()) {
@@ -80,10 +81,10 @@ public class PlayerData implements IPlayerData {
 
         privateData.register(MANA, 0);
         privateData.register(UNSPENT_POINTS, 0);
-        privateData.register(CLASS_ID, ClassData.INVALID_CLASS.toString());
+        privateData.register(CLASS_ID, GameConstants.INVALID_CLASS.toString());
         privateData.register(LEVEL, 0);
         for (int i = 0; i < GameConstants.ACTION_BAR_SIZE; i++) {
-            privateData.register(ACTION_BAR_ABILITY_ID[i], ClassData.INVALID_ABILITY.toString());
+            privateData.register(ACTION_BAR_ABILITY_ID[i], GameConstants.INVALID_ABILITY.toString());
             privateData.register(ACTION_BAR_ABILITY_LEVEL[i], GameConstants.ACTION_BAR_INVALID_LEVEL);
         }
     }
@@ -108,7 +109,7 @@ public class PlayerData implements IPlayerData {
         if (cinfo != null) {
             return cinfo.getLastLeveledAbility();
         }
-        return ClassData.INVALID_ABILITY;
+        return GameConstants.INVALID_ABILITY;
     }
 
     @Override
@@ -180,7 +181,7 @@ public class PlayerData implements IPlayerData {
 
     @Override
     public boolean hasChosenClass() {
-        return this.getClassId().compareTo(ClassData.INVALID_CLASS) != 0;
+        return this.getClassId().compareTo(GameConstants.INVALID_CLASS) != 0;
     }
 
     @Override
@@ -265,7 +266,7 @@ public class PlayerData implements IPlayerData {
     }
 
     private int getFirstFreeAbilitySlot() {
-        return getCurrentSlotForAbility(ClassData.INVALID_ABILITY);
+        return getCurrentSlotForAbility(GameConstants.INVALID_ABILITY);
     }
 
     @Override
@@ -273,7 +274,7 @@ public class PlayerData implements IPlayerData {
         if (index < ACTION_BAR_ABILITY_ID.length) {
             return new ResourceLocation(privateData.get(ACTION_BAR_ABILITY_ID[index]));
         }
-        return ClassData.INVALID_ABILITY;
+        return GameConstants.INVALID_ABILITY;
     }
 
     @Override
@@ -398,7 +399,7 @@ public class PlayerData implements IPlayerData {
     @Override
     public boolean executeHotBarAbility(int slotIndex) {
         ResourceLocation abilityId = getAbilityInSlot(slotIndex);
-        if (abilityId.compareTo(ClassData.INVALID_ABILITY) == 0)
+        if (abilityId.compareTo(GameConstants.INVALID_ABILITY) == 0)
             return false;
 
         if (getCurrentAbilityCooldown(abilityId) == 0) {
@@ -450,7 +451,7 @@ public class PlayerData implements IPlayerData {
         PlayerAbilityInfo abilityInfo = getAbilityInfo(abilityId);
 
         boolean valid = abilityInfo != null && abilityInfo.level != GameConstants.ACTION_BAR_INVALID_LEVEL;
-        ResourceLocation id = valid ? abilityInfo.id : ClassData.INVALID_ABILITY;
+        ResourceLocation id = valid ? abilityInfo.id : GameConstants.INVALID_ABILITY;
         int level = valid ? abilityInfo.level : GameConstants.ACTION_BAR_INVALID_LEVEL;
 
         setAbilityInSlot(index, id);
@@ -654,11 +655,11 @@ public class PlayerData implements IPlayerData {
             // If the character was saved with a class that doesn't exist anymore (say from a plugin),
             // reset the character to have no class
             if (ClassData.getClass(classId) == null)
-                classId = ClassData.INVALID_CLASS;
+                classId = GameConstants.INVALID_CLASS;
 
             activateClass(classId);
         } else {
-            activateClass(ClassData.INVALID_CLASS);
+            activateClass(GameConstants.INVALID_CLASS);
         }
     }
 
@@ -708,7 +709,7 @@ public class PlayerData implements IPlayerData {
                 setUnspentPoints(curUnspent - 1);
             } else {
                 ResourceLocation lastAbility = getLastLeveledAbility();
-                if (lastAbility.compareTo(ClassData.INVALID_ABILITY) != 0) {
+                if (lastAbility.compareTo(GameConstants.INVALID_ABILITY) != 0) {
                     unlearnAbility(lastAbility, false);
                 }
             }
@@ -792,15 +793,15 @@ public class PlayerData implements IPlayerData {
         saveCurrentClass();
         deactivateCurrentToggleAbilities();
 
-        if (classId.compareTo(ClassData.INVALID_CLASS) == 0 || !isClassKnown(classId)) {
+        if (classId.compareTo(GameConstants.INVALID_CLASS) == 0 || !isClassKnown(classId)) {
             // Switching to no class
 
-            classId = ClassData.INVALID_CLASS;
+            classId = GameConstants.INVALID_CLASS;
             level = 1;
             unspent = 1;
             hotbar = new ResourceLocation[GameConstants.ACTION_BAR_SIZE];
             for (int i = 0; i < hotbar.length; i++) {
-                hotbar[i] = ClassData.INVALID_ABILITY;
+                hotbar[i] = GameConstants.INVALID_ABILITY;
             }
         } else {
             PlayerClassInfo info = knownClasses.get(classId);
@@ -867,23 +868,6 @@ public class PlayerData implements IPlayerData {
         sender.sendMessage(new TextComponentString(msg));
         for (PlayerAbilityInfo info : abilityInfoMap.values()) {
             BaseAbility ability = ClassData.getAbility(info.id);
-
-            msg = String.format("%s: %d / %d", ability.getAbilityName(), abilityTracker.getCooldownTicks(info), getAbilityCooldown(ability));
-            sender.sendMessage(new TextComponentString(msg));
-        }
-    }
-
-    public void debugDumpCurrentClassAbilities(ICommandSender sender) {
-        BaseClass playerClass = ClassData.getClass(getClassId());
-        if (playerClass == null)
-            return;
-
-        String msg = String.format("%s Abilities:", playerClass.getClassName());
-        sender.sendMessage(new TextComponentString(msg));
-        for (BaseAbility ability : playerClass.getAbilities()) {
-            PlayerAbilityInfo info = getAbilityInfo(ability.getAbilityId());
-            if (info == null)
-                continue;
 
             msg = String.format("%s: %d / %d", ability.getAbilityName(), abilityTracker.getCooldownTicks(info), getAbilityCooldown(ability));
             sender.sendMessage(new TextComponentString(msg));

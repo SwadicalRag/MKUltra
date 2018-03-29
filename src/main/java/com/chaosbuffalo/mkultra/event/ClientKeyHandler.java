@@ -1,7 +1,9 @@
 package com.chaosbuffalo.mkultra.event;
 
-import com.chaosbuffalo.mkultra.GameConstants;
+import com.chaosbuffalo.mkultra.api.GameConstants;
 import com.chaosbuffalo.mkultra.MKUltra;
+import com.chaosbuffalo.mkultra.api.BaseAbility;
+import com.chaosbuffalo.mkultra.api.IPlayerData;
 import com.chaosbuffalo.mkultra.core.*;
 import com.chaosbuffalo.mkultra.network.ModGuiHandler;
 import com.chaosbuffalo.mkultra.network.packets.client.ExecuteActivePacket;

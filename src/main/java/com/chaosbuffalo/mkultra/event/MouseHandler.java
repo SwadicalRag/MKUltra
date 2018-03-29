@@ -1,7 +1,7 @@
 package com.chaosbuffalo.mkultra.event;
 
 import com.chaosbuffalo.mkultra.MKUltra;
-import com.chaosbuffalo.mkultra.item.interfaces.IExtendedReach;
+import com.chaosbuffalo.mkultra.api.IExtendedReach;
 import com.chaosbuffalo.mkultra.network.packets.client.RangeSwordAttackPacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;

@@ -2,7 +2,7 @@ package com.chaosbuffalo.mkultra.client.gui;
 
 
 import com.chaosbuffalo.mkultra.MKUltra;
-import com.chaosbuffalo.mkultra.core.IPlayerData;
+import com.chaosbuffalo.mkultra.api.IPlayerData;
 import com.chaosbuffalo.mkultra.core.PlayerDataProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;

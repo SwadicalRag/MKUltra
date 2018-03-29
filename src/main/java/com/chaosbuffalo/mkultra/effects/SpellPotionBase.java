@@ -1,6 +1,7 @@
 package com.chaosbuffalo.mkultra.effects;
 
 import com.chaosbuffalo.mkultra.MKUltra;
+import com.chaosbuffalo.mkultra.api.Targeting;
 import com.chaosbuffalo.mkultra.log.Log;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;

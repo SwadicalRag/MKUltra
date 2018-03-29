@@ -1,6 +1,6 @@
 package com.chaosbuffalo.mkultra.item;
 
-import com.chaosbuffalo.mkultra.item.interfaces.IExtendedReach;
+import com.chaosbuffalo.mkultra.api.IExtendedReach;
 import com.google.common.collect.Multimap;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;

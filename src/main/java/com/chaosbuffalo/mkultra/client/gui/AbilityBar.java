@@ -1,7 +1,10 @@
 package com.chaosbuffalo.mkultra.client.gui;
 
-import com.chaosbuffalo.mkultra.GameConstants;
+import com.chaosbuffalo.mkultra.api.GameConstants;
 import com.chaosbuffalo.mkultra.MKUltra;
+import com.chaosbuffalo.mkultra.api.BaseAbility;
+import com.chaosbuffalo.mkultra.api.BaseToggleAbility;
+import com.chaosbuffalo.mkultra.api.IPlayerData;
 import com.chaosbuffalo.mkultra.core.*;
 import com.chaosbuffalo.mkultra.event.ClientKeyHandler;
 import net.minecraft.client.Minecraft;
@@ -99,7 +102,7 @@ public class AbilityBar extends Gui {
 
         for (int i = 0; i < SLOT_COUNT; i++) {
             ResourceLocation abilityId = data.getAbilityInSlot(i);
-            if (abilityId.compareTo(ClassData.INVALID_ABILITY) == 0)
+            if (abilityId.compareTo(GameConstants.INVALID_ABILITY) == 0)
                 continue;
 
             BaseAbility ability = ClassData.getAbility(abilityId);

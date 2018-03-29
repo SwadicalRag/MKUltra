@@ -1,4 +1,4 @@
-package com.chaosbuffalo.mkultra.effects;
+package com.chaosbuffalo.mkultra.api;
 
 import com.google.common.collect.Sets;
 import net.minecraft.entity.Entity;

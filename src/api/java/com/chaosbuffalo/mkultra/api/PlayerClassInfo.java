@@ -1,6 +1,5 @@
-package com.chaosbuffalo.mkultra.core;
+package com.chaosbuffalo.mkultra.api;
 
-import com.chaosbuffalo.mkultra.GameConstants;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
@@ -24,14 +23,14 @@ public class PlayerClassInfo {
         this.level = 1;
         this.unspentPoints = 1;
         hotbar = new ResourceLocation[GameConstants.ACTION_BAR_SIZE];
-        Arrays.fill(hotbar, ClassData.INVALID_ABILITY);
+        Arrays.fill(hotbar, GameConstants.INVALID_ABILITY);
         spendOrder = new ArrayDeque<>(GameConstants.MAX_CLASS_LEVEL);
     }
 
     private ResourceLocation[] parseNBTAbilityArray(NBTTagCompound tag, String name, int size) {
         NBTTagList list = tag.getTagList(name, Constants.NBT.TAG_STRING);
         ResourceLocation[] arr = new ResourceLocation[size];
-        Arrays.fill(arr, ClassData.INVALID_ABILITY);
+        Arrays.fill(arr, GameConstants.INVALID_ABILITY);
         for (int i = 0; i < size && i < list.tagCount(); i++) {
             arr[i] = new ResourceLocation(list.getStringTagAt(i));
         }
@@ -66,7 +65,7 @@ public class PlayerClassInfo {
         return hotbar;
     }
 
-    void setActiveAbilities(ResourceLocation[] hotbar) {
+    public void setActiveAbilities(ResourceLocation[] hotbar) {
         this.hotbar = hotbar;
     }
 
@@ -79,7 +78,7 @@ public class PlayerClassInfo {
             return spendOrder.removeFirst();
         }
         else {
-            return ClassData.INVALID_ABILITY;
+            return GameConstants.INVALID_ABILITY;
         }
     }
 }

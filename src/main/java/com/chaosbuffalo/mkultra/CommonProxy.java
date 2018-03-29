@@ -1,11 +1,11 @@
 package com.chaosbuffalo.mkultra;
 
 import com.chaosbuffalo.mkultra.init.ModEntities;
-import com.chaosbuffalo.mkultra.core.IPlayerData;
+import com.chaosbuffalo.mkultra.api.IPlayerData;
 import com.chaosbuffalo.mkultra.core.PlayerData;
 import com.chaosbuffalo.mkultra.core.PlayerDataStorage;
 import com.chaosbuffalo.mkultra.integration.Integrations;
-import com.chaosbuffalo.mkultra.core.ArmorClass;
+import com.chaosbuffalo.mkultra.api.ArmorClass;
 import com.chaosbuffalo.mkultra.init.ModItems;
 import com.chaosbuffalo.mkultra.log.Log;
 import com.chaosbuffalo.mkultra.network.ModGuiHandler;

@@ -2,9 +2,9 @@ package com.chaosbuffalo.mkultra.client.gui;
 
 import com.chaosbuffalo.mkultra.MKUltra;
 import com.chaosbuffalo.mkultra.core.ClassData;
-import com.chaosbuffalo.mkultra.core.IPlayerData;
+import com.chaosbuffalo.mkultra.api.IPlayerData;
 import com.chaosbuffalo.mkultra.core.PlayerDataProvider;
-import com.chaosbuffalo.mkultra.item.interfaces.IClassProvider;
+import com.chaosbuffalo.mkultra.api.IClassProvider;
 import com.chaosbuffalo.mkultra.network.packets.client.LevelUpRequestPacket;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;

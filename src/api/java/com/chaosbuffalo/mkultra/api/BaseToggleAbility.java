@@ -1,4 +1,4 @@
-package com.chaosbuffalo.mkultra.core;
+package com.chaosbuffalo.mkultra.api;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;

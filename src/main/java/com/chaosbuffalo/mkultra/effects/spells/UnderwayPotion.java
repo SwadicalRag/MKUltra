@@ -1,20 +1,14 @@
 package com.chaosbuffalo.mkultra.effects.spells;
 
 import com.chaosbuffalo.mkultra.MKUltra;
-import com.chaosbuffalo.mkultra.core.PlayerAttributes;
+import com.chaosbuffalo.mkultra.api.PlayerAttributes;
 import com.chaosbuffalo.mkultra.effects.SpellCast;
 import com.chaosbuffalo.mkultra.effects.SpellPotionBase;
-import com.chaosbuffalo.mkultra.effects.Targeting;
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Multimap;
+import com.chaosbuffalo.mkultra.api.Targeting;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.attributes.AbstractAttributeMap;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.network.play.server.SPacketPlayerAbilities;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;

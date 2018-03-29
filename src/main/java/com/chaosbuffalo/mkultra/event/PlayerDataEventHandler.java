@@ -1,7 +1,7 @@
 package com.chaosbuffalo.mkultra.event;
 
 import com.chaosbuffalo.mkultra.MKUltra;
-import com.chaosbuffalo.mkultra.core.IPlayerData;
+import com.chaosbuffalo.mkultra.api.IPlayerData;
 import com.chaosbuffalo.mkultra.core.PlayerDataProvider;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;

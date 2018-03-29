@@ -1,7 +1,7 @@
 package com.chaosbuffalo.mkultra.event;
 
 
-import com.chaosbuffalo.mkultra.core.IPlayerData;
+import com.chaosbuffalo.mkultra.api.IPlayerData;
 import com.chaosbuffalo.mkultra.core.PlayerDataProvider;
 import com.chaosbuffalo.mkultra.effects.spells.*;
 import com.chaosbuffalo.mkultra.log.Log;

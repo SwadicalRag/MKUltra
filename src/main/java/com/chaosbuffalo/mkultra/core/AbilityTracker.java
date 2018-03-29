@@ -1,5 +1,6 @@
 package com.chaosbuffalo.mkultra.core;
 
+import com.chaosbuffalo.mkultra.api.PlayerAbilityInfo;
 import com.google.common.collect.Maps;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;

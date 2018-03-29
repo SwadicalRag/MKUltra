@@ -1,7 +1,7 @@
 package com.chaosbuffalo.mkultra.network.packets.server;
 
-import com.chaosbuffalo.mkultra.core.IPlayerData;
-import com.chaosbuffalo.mkultra.core.PlayerAbilityInfo;
+import com.chaosbuffalo.mkultra.api.IPlayerData;
+import com.chaosbuffalo.mkultra.api.PlayerAbilityInfo;
 import com.chaosbuffalo.mkultra.core.PlayerDataProvider;
 import com.chaosbuffalo.mkultra.network.MessageHandler;
 import com.chaosbuffalo.mkultra.utils.ClientUtils;

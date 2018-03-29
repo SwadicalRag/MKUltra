@@ -1,6 +1,7 @@
 package com.chaosbuffalo.mkultra.core;
 
 import com.chaosbuffalo.mkultra.MKUltra;
+import com.chaosbuffalo.mkultra.api.PlayerAbilityInfo;
 import com.chaosbuffalo.mkultra.network.packets.server.AbilityCooldownPacket;
 import net.minecraft.entity.player.EntityPlayerMP;
 

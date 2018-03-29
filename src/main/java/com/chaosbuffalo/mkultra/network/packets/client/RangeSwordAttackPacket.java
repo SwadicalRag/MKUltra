@@ -1,6 +1,6 @@
 package com.chaosbuffalo.mkultra.network.packets.client;
 
-import com.chaosbuffalo.mkultra.item.interfaces.IExtendedReach;
+import com.chaosbuffalo.mkultra.api.IExtendedReach;
 import com.chaosbuffalo.mkultra.network.MessageHandler;
 import com.chaosbuffalo.mkultra.utils.ServerUtils;
 import io.netty.buffer.ByteBuf;

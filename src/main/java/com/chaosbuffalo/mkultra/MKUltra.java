@@ -1,6 +1,12 @@
 package com.chaosbuffalo.mkultra;
 
+import com.chaosbuffalo.mkultra.api.GameConstants;
+import com.chaosbuffalo.mkultra.api.IMKUltraAPI;
+import com.chaosbuffalo.mkultra.core.PluginLoader;
 import com.chaosbuffalo.mkultra.command.MKCommand;
+import com.chaosbuffalo.mkultra.api.BaseAbility;
+import com.chaosbuffalo.mkultra.api.BaseClass;
+import com.chaosbuffalo.mkultra.core.ClassData;
 import com.chaosbuffalo.mkultra.network.PacketHandler;
 import com.chaosbuffalo.mkultra.party.PartyCommand;
 import net.minecraftforge.fml.common.Mod;
@@ -15,9 +21,11 @@ import org.apache.logging.log4j.Logger;
                 "required-after:poweradvantage;" +
                 "after:versionchecker;")
 public class MKUltra {
-    public static final String MODID = "mkultra";
+    public static final String MODID = GameConstants.MODID;
     public static final String VERSION = "@VERSION@";
     public static final String MODNAME = "MKUltra";
+
+    public static final IMKUltraAPI API = new UltraAPI();
 
     @Mod.Instance
     public static MKUltra INSTANCE = new MKUltra();
@@ -33,6 +41,8 @@ public class MKUltra {
     public void preInit(FMLPreInitializationEvent e) {
 
         LOG = e.getModLog();
+
+        PluginLoader.INSTANCE.load(e);
 
         updateCheck(MKUltra.MODID);
         updateCheck("versionchecker");
@@ -58,6 +68,7 @@ public class MKUltra {
 
     @EventHandler
     public void init(FMLInitializationEvent e) {
+        PluginLoader.INSTANCE.register();
         proxy.init(e);
     }
 
@@ -71,5 +82,19 @@ public class MKUltra {
     {
         event.registerServerCommand(new PartyCommand());
         event.registerServerCommand(new MKCommand());
+    }
+
+
+    private static class UltraAPI implements IMKUltraAPI {
+
+        @Override
+        public void registerAbility(BaseAbility ability) {
+            ClassData.REGISTRY_ABILITIES.register(ability.setRegistryName(ability.getAbilityId()));
+        }
+
+        @Override
+        public void registerClass(BaseClass baseClass) {
+            ClassData.REGISTRY_CLASSES.register(baseClass.setRegistryName(baseClass.getClassId()));
+        }
     }
 }

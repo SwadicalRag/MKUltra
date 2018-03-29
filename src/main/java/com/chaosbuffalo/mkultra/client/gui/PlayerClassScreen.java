@@ -1,9 +1,12 @@
 package com.chaosbuffalo.mkultra.client.gui;
 
-import com.chaosbuffalo.mkultra.GameConstants;
+import com.chaosbuffalo.mkultra.api.GameConstants;
 import com.chaosbuffalo.mkultra.MKUltra;
+import com.chaosbuffalo.mkultra.api.BaseAbility;
+import com.chaosbuffalo.mkultra.api.BaseClass;
+import com.chaosbuffalo.mkultra.api.IPlayerData;
 import com.chaosbuffalo.mkultra.core.*;
-import com.chaosbuffalo.mkultra.item.interfaces.IClassProvider;
+import com.chaosbuffalo.mkultra.api.IClassProvider;
 import com.chaosbuffalo.mkultra.network.packets.client.LevelAbilityPacket;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiButton;

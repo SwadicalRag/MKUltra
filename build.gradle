@@ -10,6 +10,33 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle.forge'
 //Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 
+sourceSets {
+    api {
+        java {
+            srcDir 'src/api/java'
+        }
+        resources {
+            srcDir 'src/api/resources'
+        }
+    }
+    main {
+        java {
+            srcDir 'src/main/java'
+        }
+        resources {
+            srcDir 'src/main/resources'
+        }
+        compileClasspath += sourceSets.api.output
+    }
+}
+
+ext.configFile = file "build.properties"
+configFile.withReader {
+    def prop = new Properties()
+    prop.load(it)
+    ext.config = new ConfigSlurper().parse prop
+}
+
 version = "0.61"
 group = "com.chaosbuffalo.mkultra" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "MKUltra"
@@ -20,6 +47,10 @@ minecraft {
 
     replaceIn "MKUltra.java"
     replace "@VERSION@", project.version
+    replace "@MODID@", config.getProperty("modId")
+
+    replaceIn "GameConstants.java"
+    replace "@MODID@", config.getProperty("modId")
 
     // the mappings can be changed at any time, and must be in the following format.
     // snapshot_YYYYMMDD   snapshot are built nightly.
@@ -76,3 +107,18 @@ processResources
         exclude 'mcmod.info'
     }
 }
+
+task apiJar(type: Jar) {
+    classifier = 'api'
+    from sourceSets.api.output
+}
+
+jar {
+    from sourceSets.api.output
+    from sourceSets.main.output
+
+    dependsOn apiJar
+}
+
+tasks.build.dependsOn sourceJar, apiJar
+

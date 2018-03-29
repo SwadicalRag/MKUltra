@@ -2,7 +2,8 @@ package com.chaosbuffalo.mkultra.core;
 
 
 import com.chaosbuffalo.mkultra.MKUltra;
-import com.chaosbuffalo.mkultra.core.classes.*;
+import com.chaosbuffalo.mkultra.api.BaseAbility;
+import com.chaosbuffalo.mkultra.api.BaseClass;
 import com.google.common.collect.Lists;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
@@ -18,14 +19,6 @@ import java.util.stream.Collectors;
 
 @Mod.EventBusSubscriber
 public class ClassData {
-
-
-    public static ResourceLocation INVALID_CLASS = new ResourceLocation(MKUltra.MODID, "class.invalid");
-    public static ResourceLocation INVALID_ABILITY = new ResourceLocation(MKUltra.MODID, "ability.invalid");
-
-    private static void registerClass(BaseClass cls) {
-        BUILTIN_CLASSES.add(cls);
-    }
 
     public static BaseClass getClass(ResourceLocation classId) {
         return REGISTRY_CLASSES.getValue(classId);
@@ -53,23 +46,10 @@ public class ClassData {
         return REGISTRY_ABILITIES.getValue(abilityId);
     }
 
-    private static IForgeRegistry<BaseClass> REGISTRY_CLASSES = null;
-    private static IForgeRegistry<BaseAbility> REGISTRY_ABILITIES = null;
+    public static IForgeRegistry<BaseClass> REGISTRY_CLASSES = null;
+    public static IForgeRegistry<BaseAbility> REGISTRY_ABILITIES = null;
 
     private static List<BaseClass> BUILTIN_CLASSES = Lists.newArrayList();
-
-    static {
-        registerClass(new Archer());
-        registerClass(new Brawler());
-        registerClass(new Digger());
-        registerClass(new Cleric());
-        registerClass(new Skald());
-        registerClass(new NetherMage());
-        registerClass(new WetWizard());
-        registerClass(new Druid());
-        registerClass(new MoonKnight());
-        registerClass(new WetKnight());
-    }
 
     @SuppressWarnings("unused")
     @SubscribeEvent

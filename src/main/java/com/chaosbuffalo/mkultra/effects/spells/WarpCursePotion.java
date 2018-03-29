@@ -4,7 +4,7 @@ import com.chaosbuffalo.mkultra.MKUltra;
 import com.chaosbuffalo.mkultra.effects.SpellCast;
 import com.chaosbuffalo.mkultra.effects.SpellDOTPotionBase;
 import com.chaosbuffalo.mkultra.effects.SpellPotionBase;
-import com.chaosbuffalo.mkultra.effects.Targeting;
+import com.chaosbuffalo.mkultra.api.Targeting;
 import com.chaosbuffalo.mkultra.fx.ParticleEffects;
 import com.chaosbuffalo.mkultra.network.packets.server.ParticleEffectSpawnPacket;
 import net.minecraft.entity.Entity;
