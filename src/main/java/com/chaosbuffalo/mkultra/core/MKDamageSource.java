@@ -16,10 +16,18 @@ public class MKDamageSource extends EntityDamageSourceIndirect {
 
     private static String ABILITY_DMG_TYPE = "mkUltraAbility";
 
-    private final ResourceLocation abilityId;
+    private ResourceLocation abilityId;
+    private BaseAbility ability;
 
     public ResourceLocation getAbilityId() {
+        if (isAbility()) {
+            return ability.getAbilityId();
+        }
         return abilityId;
+    }
+
+    public boolean isAbility() {
+        return ability != null;
     }
 
     public MKDamageSource(ResourceLocation abilityId, String damageTypeIn,
@@ -28,12 +36,18 @@ public class MKDamageSource extends EntityDamageSourceIndirect {
         this.abilityId = abilityId;
     }
 
-    public boolean isIndirectMagic() {
-        return abilityId.equals(InstantIndirectMagicDamagePotion.INDIRECT_MAGIC_DMG_ABILITY_ID);
+    public MKDamageSource(BaseAbility abilityId, String damageTypeIn,
+                          Entity source, @Nullable Entity indirectEntityIn) {
+        super(ABILITY_DMG_TYPE, source, indirectEntityIn);
+        this.ability = abilityId;
+    }
+
+    public boolean isMagicAbility() {
+        return isAbility() && ability.getAbilityId().equals(InstantIndirectMagicDamagePotion.INDIRECT_MAGIC_DMG_ABILITY_ID);
     }
 
     public boolean isMeleeAbility() {
-        return abilityId.equals(InstantIndirectDamagePotion.INDIRECT_DMG_ABILITY_ID);
+        return isAbility() && ability.getAbilityId().equals(InstantIndirectDamagePotion.INDIRECT_DMG_ABILITY_ID);
     }
 
     public static DamageSource causeIndirectMagicDamage(ResourceLocation abilityId, Entity source,
@@ -43,8 +57,15 @@ public class MKDamageSource extends EntityDamageSourceIndirect {
                 .setMagicDamage();
     }
 
-    public static DamageSource fromMeleeSkill(ResourceLocation abilityId, Entity source,
+    public static DamageSource fromMagicAbility(IAbilitySource ability, Entity source,
+                                                @Nullable Entity indirectEntityIn) {
+        return new MKDamageSource(ability.getAbility(), ABILITY_DMG_TYPE, source, indirectEntityIn)
+                .setDamageBypassesArmor()
+                .setMagicDamage();
+    }
+
+    public static DamageSource fromMeleeSkill(IAbilitySource ability, Entity source,
                                               @Nullable Entity indirectEntityIn) {
-        return new MKDamageSource(abilityId, ABILITY_DMG_TYPE, source, indirectEntityIn);
+        return new MKDamageSource(ability.getAbility(), ABILITY_DMG_TYPE, source, indirectEntityIn);
     }
 }

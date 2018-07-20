@@ -50,6 +50,7 @@ public class BallLightning extends BaseAbility {
         int level = pData.getLevelForAbility(getAbilityId());
         pData.startAbility(this);
         EntityBallLightningProjectile ballP = new EntityBallLightningProjectile(theWorld, entity);
+        ballP.setAbility(this);
         ballP.setAmplifier(level);
         ballP.shoot(entity, entity.rotationPitch, entity.rotationYaw, 0.0F, PROJECTILE_SPEED,
                 PROJECTILE_INACCURACY);

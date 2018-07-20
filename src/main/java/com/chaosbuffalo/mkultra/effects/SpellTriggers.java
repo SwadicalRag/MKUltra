@@ -137,7 +137,7 @@ public class SpellTriggers {
             event.setAmount(newDamage);
 
             CritMessagePacket packet;
-            if (mkSource.isIndirectMagic()) {
+            if (mkSource.isMagicAbility()) {
                 packet = new CritMessagePacket(livingTarget.getEntityId(), playerSource.getUniqueID(),
                                 newDamage, CritMessagePacket.CritType.INDIRECT_MAGIC_CRIT);
             }

@@ -1,5 +1,7 @@
 package com.chaosbuffalo.mkultra.effects;
 
+import com.chaosbuffalo.mkultra.core.BaseAbility;
+import com.chaosbuffalo.mkultra.core.IAbilitySource;
 import com.chaosbuffalo.mkultra.log.Log;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -13,7 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class SpellCast {
+public class SpellCast implements IAbilitySource {
 
     private static Map<UUID, Map<SpellPotionBase, SpellCast>> allCasts =
             new HashMap<>(new HashMap<>());
@@ -24,6 +26,7 @@ public class SpellCast {
     private NBTTagCompound data;
     private UUID casterUUID;
     private UUID applierUUID;
+    private BaseAbility ability;
 
     public SpellCast(SpellPotionBase potion, Entity caster) {
         this.potion = potion;
@@ -160,5 +163,13 @@ public class SpellCast {
     @Override
     public String toString() {
         return String.format("Cast[%s, %s]", potion.getName(), caster);
+    }
+
+    public BaseAbility getAbility() {
+        return ability;
+    }
+
+    public void setAbility(BaseAbility ability) {
+        this.ability = ability;
     }
 }

@@ -2,7 +2,6 @@ package com.chaosbuffalo.mkultra.effects.spells;
 
 import com.chaosbuffalo.mkultra.MKUltra;
 import com.chaosbuffalo.mkultra.core.MKDamageSource;
-import com.chaosbuffalo.mkultra.core.abilities.BallLightning;
 import com.chaosbuffalo.mkultra.effects.SpellCast;
 import com.chaosbuffalo.mkultra.effects.SpellPotionBase;
 import com.chaosbuffalo.targeting_api.Targeting;
@@ -41,7 +40,6 @@ public class BallLightningPotion extends SpellPotionBase {
     public void doEffect(Entity applier, Entity caster, EntityLivingBase target, int amplifier, SpellCast cast) {
 
         float damage = cast.getScaledValue(amplifier);
-        target.attackEntityFrom(MKDamageSource.causeIndirectMagicDamage(
-                new BallLightning().getAbilityId(), applier, caster), damage);
+        target.attackEntityFrom(MKDamageSource.fromMagicAbility(cast, applier, caster), damage);
     }
 }

@@ -1,5 +1,7 @@
 package com.chaosbuffalo.mkultra.entities.projectiles;
 
+import com.chaosbuffalo.mkultra.core.BaseAbility;
+import com.chaosbuffalo.mkultra.core.IAbilitySource;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockReed;
@@ -23,7 +25,7 @@ import java.util.List;
 import java.util.UUID;
 
 
-public abstract class EntityBaseProjectile extends Entity implements IProjectile, IThrowableEntity {
+public abstract class EntityBaseProjectile extends Entity implements IProjectile, IThrowableEntity, IAbilitySource {
     private int xTile;
     private int yTile;
     private int zTile;
@@ -43,6 +45,7 @@ public abstract class EntityBaseProjectile extends Entity implements IProjectile
     private int groundProcTime;
     private boolean doGroundProc;
     private int amplifier;
+    private BaseAbility ability;
 
     public EntityBaseProjectile(World worldIn) {
         super(worldIn);
@@ -503,5 +506,13 @@ public abstract class EntityBaseProjectile extends Entity implements IProjectile
         if (entity instanceof EntityLivingBase) {
             this.thrower = (EntityLivingBase) entity;
         }
+    }
+
+    public BaseAbility getAbility() {
+        return ability;
+    }
+
+    public void setAbility(BaseAbility ability) {
+        this.ability = ability;
     }
 }
