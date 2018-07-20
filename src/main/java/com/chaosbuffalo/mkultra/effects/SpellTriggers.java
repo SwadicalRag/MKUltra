@@ -2,8 +2,6 @@ package com.chaosbuffalo.mkultra.effects;
 
 import com.chaosbuffalo.mkultra.MKUltra;
 import com.chaosbuffalo.mkultra.core.*;
-import com.chaosbuffalo.mkultra.effects.spells.InstantIndirectDamagePotion;
-import com.chaosbuffalo.mkultra.effects.spells.InstantIndirectMagicDamagePotion;
 import com.chaosbuffalo.mkultra.fx.ParticleEffects;
 import com.chaosbuffalo.mkultra.log.Log;
 import com.chaosbuffalo.mkultra.network.packets.server.CritMessagePacket;
@@ -25,7 +23,7 @@ public class SpellTriggers {
 
 
     private static boolean isMKUltraAbilityDamage(DamageSource source){
-        return source.getDamageType().equals(MKDamageSource.ABILITY_DMG_TYPE);
+        return source instanceof MKDamageSource;
     }
 
     private static boolean isPlayerPhysicalDamage(DamageSource source) {
@@ -111,7 +109,7 @@ public class SpellTriggers {
         if (isMKUltraAbilityDamage(source)) {
             MKDamageSource mkSource = (MKDamageSource) source;
             // Handle 'melee damage' abilities
-            if (mkSource.ability_id.equals(InstantIndirectDamagePotion.INDIRECT_DMG_ABILITY_ID)) {
+            if (mkSource.isMeleeAbility()) {
                 handleMelee(event, source, livingTarget, playerSource, sourceData, false);
             } else {
                 // Handle the generic magic damage potions
@@ -127,73 +125,47 @@ public class SpellTriggers {
         playerHurtEntityPostTriggers.forEach(f -> f.apply(event, source, livingTarget, playerSource, sourceData));
     }
 
-    private static void handleMagic(LivingHurtEvent event, EntityLivingBase livingTarget, EntityPlayerMP playerSource, IPlayerData sourceData, MKDamageSource mkSource) {
-        if (mkSource.ability_id.equals(InstantIndirectMagicDamagePotion.INDIRECT_MAGIC_DMG_ABILITY_ID)) {
-            doIndirectMagicCritical(playerSource, sourceData, event, livingTarget);
-            // Handle the actual abilities
-        } else {
-            doAbilityMagicCritical(playerSource, sourceData, event, livingTarget,
-                    ClassData.getAbility(mkSource.ability_id));
-        }
+    private static void handleMagic(LivingHurtEvent event, EntityLivingBase livingTarget, EntityPlayerMP playerSource,
+                                    IPlayerData sourceData, MKDamageSource mkSource) {
 
-        playerHurtEntityPostTriggers.forEach(f -> f.apply(event, mkSource, livingTarget, playerSource, sourceData));
-    }
-
-    private static void handleMelee(LivingHurtEvent event, DamageSource source, EntityLivingBase livingTarget, EntityPlayerMP playerSource, IPlayerData sourceData, boolean isDirect) {
-        doMeleeCritical(playerSource, sourceData, event, livingTarget, isDirect);
-
-        playerHurtEntityMeleeTriggers.forEach(f -> f.apply(event, source, livingTarget, playerSource, sourceData));
-    }
-
-
-    private static void doAbilityMagicCritical(EntityPlayerMP playerSource, IPlayerData sourceData, LivingHurtEvent event,
-                                               EntityLivingBase livingTarget, BaseAbility ability) {
         if (playerSource.getRNG().nextFloat() >= 1.0f - sourceData.getSpellCritChance()) {
             float newDamage = event.getAmount() * sourceData.getSpellCritDamage();
             event.setAmount(newDamage);
-            MKUltra.packetHandler.sendToAllAround(new CritMessagePacket(
-                            livingTarget.getEntityId(), playerSource.getUniqueID(),
-                            newDamage, ability.getAbilityId()),
-                    playerSource.dimension, playerSource.posX,
-                    playerSource.posY, playerSource.posZ, 50.0f);
 
-            Vec3d lookVec = livingTarget.getLookVec();
-            MKUltra.packetHandler.sendToAllAround(
-                    new ParticleEffectSpawnPacket(
-                            EnumParticleTypes.CRIT_MAGIC.getParticleID(),
-                            ParticleEffects.SPHERE_MOTION, 30, 6,
-                            livingTarget.posX, livingTarget.posY + 1.0f,
-                            livingTarget.posZ, .5f, .5f, .5f, 1.5,
-                            lookVec),
-                    livingTarget, 50.0f);
+            CritMessagePacket packet;
+            if (mkSource.isIndirectMagic()) {
+                packet = new CritMessagePacket(livingTarget.getEntityId(), playerSource.getUniqueID(),
+                                newDamage, CritMessagePacket.CritType.INDIRECT_MAGIC_CRIT);
+            }
+            else {
+                BaseAbility ability = ClassData.getAbility(mkSource.getAbilityId());
+                packet = new CritMessagePacket(livingTarget.getEntityId(), playerSource.getUniqueID(),
+                                newDamage, ability.getAbilityId());
+            }
+
+            sendCritPacket(livingTarget, playerSource, packet);
         }
+
+        playerHurtEntityMagicTriggers.forEach(f -> f.apply(event, mkSource, livingTarget, playerSource, sourceData));
     }
 
-    private static void doIndirectMagicCritical(EntityPlayerMP playerSource, IPlayerData sourceData, LivingHurtEvent event,
-                                                EntityLivingBase livingTarget) {
-        if (playerSource.getRNG().nextFloat() >= 1.0f - sourceData.getSpellCritChance()) {
-            float newDamage = event.getAmount() * sourceData.getSpellCritDamage();
-            event.setAmount(newDamage);
-            MKUltra.packetHandler.sendToAllAround(new CritMessagePacket(
-                            livingTarget.getEntityId(), playerSource.getUniqueID(),
-                            newDamage, CritMessagePacket.CritType.INDIRECT_MAGIC_CRIT),
-                    playerSource.dimension, playerSource.posX,
-                    playerSource.posY, playerSource.posZ, 50.0f);
+    private static void sendCritPacket(EntityLivingBase livingTarget, EntityPlayerMP playerSource,
+                                       CritMessagePacket packet) {
+        MKUltra.packetHandler.sendToAllAround(packet, playerSource, 50.0f);
 
-            Vec3d lookVec = livingTarget.getLookVec();
-            MKUltra.packetHandler.sendToAllAround(
-                    new ParticleEffectSpawnPacket(
-                            EnumParticleTypes.CRIT_MAGIC.getParticleID(),
-                            ParticleEffects.SPHERE_MOTION, 30, 6,
-                            livingTarget.posX, livingTarget.posY + 1.0f,
-                            livingTarget.posZ, .5f, .5f, .5f, 1.5,
-                            lookVec),
-                    livingTarget, 50.0f);
-        }
+        Vec3d lookVec = livingTarget.getLookVec();
+        MKUltra.packetHandler.sendToAllAround(
+                new ParticleEffectSpawnPacket(
+                        EnumParticleTypes.CRIT_MAGIC.getParticleID(),
+                        ParticleEffects.SPHERE_MOTION, 30, 6,
+                        livingTarget.posX, livingTarget.posY + 1.0f,
+                        livingTarget.posZ, .5f, .5f, .5f, 1.5,
+                        lookVec),
+                livingTarget, 50.0f);
     }
 
-    private static void doMeleeCritical(EntityPlayerMP playerSource, IPlayerData sourceData, LivingHurtEvent event,
-                                        EntityLivingBase livingTarget, boolean isDirect) {
+    private static void handleMelee(LivingHurtEvent event, DamageSource source, EntityLivingBase livingTarget,
+                                    EntityPlayerMP playerSource, IPlayerData sourceData, boolean isDirect) {
         if (playerSource.getRNG().nextFloat() >= 1.0f - getCombinedCritChance(sourceData, playerSource)) {
             ItemStack mainHand = playerSource.getHeldItemMainhand();
             float newDamage = event.getAmount() * ItemUtils.getCritDamageForItem(mainHand);
@@ -201,21 +173,13 @@ public class SpellTriggers {
             CritMessagePacket.CritType type = isDirect ?
                     CritMessagePacket.CritType.MELEE_CRIT :
                     CritMessagePacket.CritType.INDIRECT_CRIT;
-            MKUltra.packetHandler.sendToAllAround(new CritMessagePacket(
-                            livingTarget.getEntityId(), playerSource.getUniqueID(),
-                            newDamage, type),
-                    playerSource.dimension, playerSource.posX,
-                    playerSource.posY, playerSource.posZ, 50.0f);
 
-            Vec3d lookVec = livingTarget.getLookVec();
-            MKUltra.packetHandler.sendToAllAround(
-                    new ParticleEffectSpawnPacket(
-                            EnumParticleTypes.CRIT.getParticleID(),
-                            ParticleEffects.SPHERE_MOTION, 30, 6,
-                            livingTarget.posX, livingTarget.posY + 1.0f,
-                            livingTarget.posZ, .5f, .5f, .5f, 1.5,
-                            lookVec),
-                    livingTarget, 50.0f);
+            sendCritPacket(livingTarget, playerSource,
+                    new CritMessagePacket(livingTarget.getEntityId(), playerSource.getUniqueID(), newDamage, type));
         }
+
+        playerHurtEntityMeleeTriggers.forEach(f -> f.apply(event, source, livingTarget, playerSource, sourceData));
     }
+
+
 }
