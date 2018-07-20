@@ -8,16 +8,20 @@ import com.chaosbuffalo.mkultra.network.packets.server.CritMessagePacket;
 import com.chaosbuffalo.mkultra.network.packets.server.ParticleEffectSpawnPacket;
 import com.chaosbuffalo.mkultra.utils.ItemUtils;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 
 import java.util.List;
+import java.util.Map;
 
 public class SpellTriggers {
 
@@ -181,5 +185,23 @@ public class SpellTriggers {
         playerHurtEntityMeleeTriggers.forEach(f -> f.apply(event, source, livingTarget, playerSource, sourceData));
     }
 
+    @FunctionalInterface
+    public interface AttackEntityTrigger {
+        void apply(EntityPlayer player, Entity target, PotionEffect effect);
+    }
 
+    private static Map<SpellPotionBase, AttackEntityTrigger> attackEntityTriggers = Maps.newLinkedHashMap();
+
+    public static void registerAttackEntityHandler(SpellPotionBase potion, AttackEntityTrigger trigger) {
+        attackEntityTriggers.put(potion, trigger);
+    }
+
+    public static void onAttackEntity(EntityPlayer player, Entity target) {
+        attackEntityTriggers.forEach((spellPotionBase, attackEntityTrigger) -> {
+            PotionEffect effect = player.getActivePotionEffect(spellPotionBase);
+            if (effect != null) {
+                attackEntityTrigger.apply(player, target, effect);
+            }
+        });
+    }
 }

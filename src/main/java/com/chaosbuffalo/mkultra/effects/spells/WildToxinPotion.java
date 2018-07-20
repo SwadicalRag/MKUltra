@@ -6,6 +6,7 @@ import com.chaosbuffalo.mkultra.core.IPlayerData;
 import com.chaosbuffalo.mkultra.core.MKUPlayerData;
 import com.chaosbuffalo.mkultra.effects.SpellCast;
 import com.chaosbuffalo.mkultra.effects.SpellPotionBase;
+import com.chaosbuffalo.mkultra.effects.SpellTriggers;
 import com.chaosbuffalo.mkultra.fx.ParticleEffects;
 import com.chaosbuffalo.targeting_api.Targeting;
 import net.minecraft.entity.Entity;
@@ -39,6 +40,7 @@ public class WildToxinPotion extends SpellPotionBase {
     private WildToxinPotion() {
         super(false, 10223410);
         setPotionName("effect.wild_toxin");
+        SpellTriggers.registerAttackEntityHandler(this, this::onAttackEntity);
     }
 
     @Override
@@ -72,11 +74,13 @@ public class WildToxinPotion extends SpellPotionBase {
     }
 
 
-    public void onAttackEntity(EntityPlayer player, Entity target, PotionEffect potion) {
+    private void onAttackEntity(EntityPlayer player, Entity target, PotionEffect potion) {
 
-        if (target instanceof EntityLivingBase){
+        if (target instanceof EntityLivingBase) {
             IPlayerData pData = MKUPlayerData.get(player);
-            if (pData.getMana() >= potion.getAmplifier()){
+            if (pData == null)
+                return;
+            if (pData.getMana() >= potion.getAmplifier()) {
                 pData.setMana(pData.getMana() - potion.getAmplifier());
                 EntityLivingBase living_target = (EntityLivingBase) target;
                 SpellCast toxin = WildToxinEffectPotion.Create(player);
