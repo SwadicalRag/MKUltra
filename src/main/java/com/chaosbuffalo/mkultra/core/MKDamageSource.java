@@ -1,5 +1,6 @@
 package com.chaosbuffalo.mkultra.core;
 
+import com.chaosbuffalo.mkultra.MKUltra;
 import com.chaosbuffalo.mkultra.effects.spells.MeleeDamagePotion;
 import com.chaosbuffalo.mkultra.effects.spells.InstantIndirectMagicDamagePotion;
 import net.minecraft.entity.Entity;
@@ -16,24 +17,21 @@ public class MKDamageSource extends EntityDamageSourceIndirect {
 
     private static String ABILITY_DMG_TYPE = "mkUltraAbility";
 
-    private ResourceLocation abilityId;
     private BaseAbility ability;
 
     public ResourceLocation getAbilityId() {
         if (isAbility()) {
             return ability.getAbilityId();
         }
-        return abilityId;
+        return ClassData.INVALID_ABILITY;
+    }
+
+    public BaseAbility getAbility() {
+        return ability;
     }
 
     public boolean isAbility() {
         return ability != null;
-    }
-
-    public MKDamageSource(ResourceLocation abilityId, String damageTypeIn,
-                          Entity source, @Nullable Entity indirectEntityIn) {
-        super(ABILITY_DMG_TYPE, source, indirectEntityIn);
-        this.abilityId = abilityId;
     }
 
     public MKDamageSource(BaseAbility abilityId, String damageTypeIn,

@@ -8,7 +8,6 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.tileentity.TileEntityHopper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentString;
@@ -22,12 +21,13 @@ import java.util.UUID;
  * Created by Jacob on 7/15/2018.
  */
 public class CritMessagePacket implements IMessage {
-    public enum CritType{
+    public enum CritType {
         INDIRECT_MAGIC_CRIT,
         MELEE_CRIT,
         SPELL_CRIT,
         INDIRECT_CRIT,
     }
+
     private int targetId;
     private UUID sourceUUID;
     private ResourceLocation abilityName;
@@ -44,11 +44,11 @@ public class CritMessagePacket implements IMessage {
         this.type = type;
     }
 
-    public CritMessagePacket(int targetId, UUID sourceUUID, float critDamage, ResourceLocation abilityName) {
-        this.targetId = targetId;
-        this.sourceUUID = sourceUUID;
-        this.critDamage = critDamage;
-        this.type = CritType.SPELL_CRIT;
+    public void setType(CritType type) {
+        this.type = type;
+    }
+
+    public void setAbilityName(ResourceLocation abilityName) {
         this.abilityName = abilityName;
     }
 
@@ -59,7 +59,7 @@ public class CritMessagePacket implements IMessage {
         this.targetId = pb.readInt();
         this.sourceUUID = pb.readUniqueId();
         this.critDamage = pb.readFloat();
-        if (type == CritType.SPELL_CRIT){
+        if (pb.readBoolean()) {
             this.abilityName = pb.readResourceLocation();
         }
     }
@@ -71,7 +71,8 @@ public class CritMessagePacket implements IMessage {
         pb.writeInt(targetId);
         pb.writeUniqueId(sourceUUID);
         pb.writeFloat(critDamage);
-        if (type == CritType.SPELL_CRIT){
+        pb.writeBoolean(abilityName != null);
+        if (abilityName != null) {
             pb.writeResourceLocation(this.abilityName);
         }
     }
@@ -90,35 +91,38 @@ public class CritMessagePacket implements IMessage {
                 boolean isSelf = player.getUniqueID().equals(msg.sourceUUID);
                 EntityPlayer playerSource = player.getEntityWorld().getPlayerEntityByUUID(msg.sourceUUID);
                 Entity target = player.getEntityWorld().getEntityByID(msg.targetId);
-                if (target == null || playerSource == null){
+                if (target == null || playerSource == null) {
                     return;
                 }
-                switch (msg.type){
+
+                BaseAbility ability = null;
+                if (msg.abilityName != null) {
+                    ability = ClassData.getAbility(msg.abilityName);
+                }
+
+                switch (msg.type) {
                     case MELEE_CRIT:
                     case INDIRECT_CRIT:
+                        String meleeName = isSelf ? "You" : playerSource.getDisplayNameString();
+                        String meleeSkill = msg.type == CritType.MELEE_CRIT ?
+                                playerSource.getHeldItemMainhand().getDisplayName() :
+                                ability != null ? ability.getAbilityName() : "melee skill";
                         messageStyle.setColor(
-                                msg.type == CritType.MELEE_CRIT ? TextFormatting.DARK_RED : TextFormatting.GOLD
+                                msg.type == CritType.MELEE_CRIT ?
+                                        TextFormatting.DARK_RED :
+                                        TextFormatting.GOLD
                         );
-                        if (isSelf){
-                            player.sendMessage(new TextComponentString(
-                                    String.format("You just crit %s with %s for %s",
-                                            target.getDisplayName().getUnformattedText(),
-                                            playerSource.getHeldItemMainhand().getDisplayName(),
-                                            Float.toString(msg.critDamage)))
-                                    .setStyle(messageStyle));
-                        } else {
-                            player.sendMessage(new TextComponentString(
-                                    String.format("%s just crit %s with %s for %s",
-                                            playerSource.getDisplayName().getUnformattedText(),
-                                            target.getDisplayName().getUnformattedText(),
-                                            playerSource.getHeldItemMainhand().getDisplayName(),
-                                            Float.toString(msg.critDamage))
-                            ).setStyle(messageStyle));
-                        }
+                        player.sendMessage(new TextComponentString(
+                                String.format("%s just crit %s with %s for %f",
+                                        meleeName,
+                                        target.getDisplayName().getUnformattedText(),
+                                        meleeSkill,
+                                        msg.critDamage))
+                                .setStyle(messageStyle));
                         break;
                     case INDIRECT_MAGIC_CRIT:
                         messageStyle.setColor(TextFormatting.BLUE);
-                        if (isSelf){
+                        if (isSelf) {
                             player.sendMessage(new TextComponentString(
                                     String.format("Your magic spell just crit %s for %s",
                                             target.getDisplayName().getUnformattedText(),
@@ -135,7 +139,6 @@ public class CritMessagePacket implements IMessage {
                         break;
                     case SPELL_CRIT:
                         messageStyle.setColor(TextFormatting.AQUA);
-                        BaseAbility ability = ClassData.getAbility(msg.abilityName);
                         if (isSelf) {
                             player.sendMessage(new TextComponentString(
                                     String.format("Your %s spell just crit %s for %s",
