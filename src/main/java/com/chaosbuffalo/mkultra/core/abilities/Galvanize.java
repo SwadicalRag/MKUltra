@@ -60,7 +60,7 @@ public class Galvanize extends BaseAbility {
         int level = pData.getLevelForAbility(getAbilityId());
 
         PotionEffect jump = new PotionEffect(MobEffects.JUMP_BOOST, 100 + (50 * level), level - 1, false, true);
-        SpellCast cure = CurePotion.Create(entity);
+        SpellCast cure = CurePotion.Create(this, entity);
 
         AreaEffectBuilder.Create(entity, entity)
                 .spellCast(cure, level, getTargetType())

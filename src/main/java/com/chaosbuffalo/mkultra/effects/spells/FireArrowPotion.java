@@ -44,7 +44,7 @@ public class FireArrowPotion extends SpellPotionBase {
     @Override
     public void doEffect(Entity source, Entity caster, EntityLivingBase target, int amplifier, SpellCast cast) {
         if (target.isBurning()) {
-            SpellCast wave = FlameWavePotion.Create(caster, cast.getBaseValue(), cast.getScaleValue());
+            SpellCast wave = FlameWavePotion.Create(cast.getAbility(), caster, cast.getBaseValue(), cast.getScaleValue());
             SpellCast particle = ParticlePotion.Create(caster,
                     EnumParticleTypes.LAVA.getParticleID(),
                     ParticleEffects.SPHERE_MOTION, false, new Vec3d(1.0, 1.0, 1.0),

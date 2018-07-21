@@ -13,7 +13,6 @@ import com.chaosbuffalo.mkultra.network.packets.server.ParticleEffectSpawnPacket
 import com.chaosbuffalo.targeting_api.Targeting;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
@@ -61,8 +60,8 @@ public class Esuna extends BaseAbility {
         int level = pData.getLevelForAbility(getAbilityId());
 
         // What to do for each target hit
-        SpellCast esuna = EsunaPotion.Create(entity);
-        SpellCast cure = CurePotion.Create(entity);
+        SpellCast esuna = EsunaPotion.Create(this, entity);
+        SpellCast cure = CurePotion.Create(this, entity);
 
         AreaEffectBuilder.Create(entity, entity)
                 .spellCast(esuna, 4 * GameConstants.TICKS_PER_SECOND, level, getTargetType())

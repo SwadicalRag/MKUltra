@@ -71,7 +71,7 @@ public class FlameBlade  extends BaseAbility {
 
         // What to do for each target hit
         int duration = (BASE_DURATION + DURATION_SCALE * level) * GameConstants.TICKS_PER_SECOND;
-        SpellCast effect = FlameBladePotion.Create(entity);
+        SpellCast effect = FlameBladePotion.Create(this, entity);
         SpellCast particlePotion = ParticlePotion.Create(entity,
                 EnumParticleTypes.DRIP_LAVA.getParticleID(),
                 ParticleEffects.DIRECTED_SPOUT, false, new Vec3d(1.0, 1.5, 1.0),

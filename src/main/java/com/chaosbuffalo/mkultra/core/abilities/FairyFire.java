@@ -56,6 +56,7 @@ public class FairyFire extends BaseAbility {
         int level = pData.getLevelForAbility(getAbilityId());
         pData.startAbility(this);
         EntityFairyFireProjectile projectile = new EntityFairyFireProjectile(theWorld, entity);
+        projectile.setAbility(this);
         projectile.setAmplifier(level);
         projectile.shoot(entity, entity.rotationPitch, entity.rotationYaw, 0.0F, PROJECTILE_SPEED,
                 PROJECTILE_INACCURACY);

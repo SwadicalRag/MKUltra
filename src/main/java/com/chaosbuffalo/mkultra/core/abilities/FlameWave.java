@@ -12,7 +12,6 @@ import com.chaosbuffalo.mkultra.network.packets.server.ParticleEffectSpawnPacket
 import com.chaosbuffalo.targeting_api.Targeting;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
@@ -62,7 +61,7 @@ public class FlameWave extends BaseAbility {
         int level = pData.getLevelForAbility(getAbilityId());
 
         // What to do for each target hit
-        SpellCast flames = FlameWavePotion.Create(entity, BASE_DAMAGE, DAMAGE_SCALE);
+        SpellCast flames = FlameWavePotion.Create(this, entity, BASE_DAMAGE, DAMAGE_SCALE);
         SpellCast particles = ParticlePotion.Create(entity,
                 EnumParticleTypes.LAVA.getParticleID(),
                 ParticleEffects.SPHERE_MOTION, false, new Vec3d(1.0, 1.0, 1.0),
