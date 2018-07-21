@@ -65,7 +65,7 @@ public class Ignite extends BaseAbility {
         if (targetEntity != null) {
             pData.startAbility(this);
 
-            targetEntity.attackEntityFrom(MKDamageSource.causeIndirectMagicDamage(this, entity, entity), BASE_DAMAGE + level * DAMAGE_SCALE);
+            targetEntity.attackEntityFrom(MKDamageSource.fromMagicSpell(this, entity, entity), BASE_DAMAGE + level * DAMAGE_SCALE);
 
             if (targetEntity.isBurning()){
                 SpellCast ignite = IgnitePotion.Create(this, entity, BASE_DAMAGE, DAMAGE_SCALE);

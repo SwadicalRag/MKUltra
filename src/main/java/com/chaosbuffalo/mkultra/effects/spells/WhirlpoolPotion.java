@@ -3,7 +3,6 @@ package com.chaosbuffalo.mkultra.effects.spells;
 import com.chaosbuffalo.mkultra.MKUltra;
 import com.chaosbuffalo.mkultra.core.BaseAbility;
 import com.chaosbuffalo.mkultra.core.MKDamageSource;
-import com.chaosbuffalo.mkultra.core.abilities.Whirlpool;
 import com.chaosbuffalo.mkultra.effects.SpellCast;
 import com.chaosbuffalo.mkultra.effects.SpellPeriodicPotionBase;
 import com.chaosbuffalo.mkultra.effects.SpellTriggers;
@@ -12,13 +11,11 @@ import com.chaosbuffalo.mkultra.network.packets.server.ParticleEffectSpawnPacket
 import com.chaosbuffalo.targeting_api.Targeting;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -62,7 +59,7 @@ public class WhirlpoolPotion extends SpellPeriodicPotionBase {
 
     @Override
     public void doEffect(Entity source, Entity indirectSource, EntityLivingBase target, int amplifier, SpellCast cast) {
-        target.attackEntityFrom(MKDamageSource.causeIndirectMagicDamage(cast, source, indirectSource), amplifier * 2.0f);
+        target.attackEntityFrom(MKDamageSource.fromMagicSpell(cast, source, indirectSource), amplifier * 2.0f);
         MKUltra.packetHandler.sendToAllAround(
                 new ParticleEffectSpawnPacket(
                         EnumParticleTypes.WATER_SPLASH.getParticleID(),
@@ -76,7 +73,7 @@ public class WhirlpoolPotion extends SpellPeriodicPotionBase {
     private void onFall(LivingHurtEvent event, DamageSource source, EntityLivingBase entity) {
         PotionEffect potion = entity.getActivePotionEffect(WhirlpoolPotion.INSTANCE);
         if (potion != null) {
-            entity.attackEntityFrom(MKDamageSource.causeIndirectMagicDamage(INSTANCE.getAbility(), source.getImmediateSource(),
+            entity.attackEntityFrom(MKDamageSource.fromMagicSpell(INSTANCE.getAbility(), source.getImmediateSource(),
                     source.getTrueSource()), 8.0f * potion.getAmplifier());
         }
     }

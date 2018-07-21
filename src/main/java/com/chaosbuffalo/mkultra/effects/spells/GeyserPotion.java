@@ -14,7 +14,6 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.network.play.server.SPacketEntityVelocity;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.DamageSource;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -56,7 +55,7 @@ public class GeyserPotion extends SpellPotionBase {
             target.addPotionEffect(new PotionEffect(MobEffects.LEVITATION, baseDuration, amplifier, false, true));
             target.addPotionEffect(FeatherFallPotion.Create(cast.getAbility(), caster).setTarget(target).toPotionEffect(baseDuration + 40, amplifier));
         } else {
-            target.attackEntityFrom(MKDamageSource.causeIndirectMagicDamage(cast, applier, caster), cast.getScaledValue(amplifier));
+            target.attackEntityFrom(MKDamageSource.fromMagicSpell(cast, applier, caster), cast.getScaledValue(amplifier));
             target.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, baseDuration * 2, amplifier, false, true));
             target.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, baseDuration, amplifier, false, true));
         }

@@ -73,7 +73,7 @@ public class UndertowPotion extends ExclusiveSpellPotionBase {
         if (target instanceof EntityLivingBase) {
             EntityLivingBase livingEnt = (EntityLivingBase) target;
             if (livingEnt.isPotionActive(INSTANCE)) {
-                livingEnt.attackEntityFrom(MKDamageSource.causeIndirectMagicDamage(getAbility(), livingEnt, player),
+                livingEnt.attackEntityFrom(MKDamageSource.fromMagicSpell(getAbility(), livingEnt, player),
                         5.0f * effect.getAmplifier());
             }
         }

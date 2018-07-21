@@ -18,6 +18,7 @@ public class MKDamageSource extends EntityDamageSourceIndirect {
     private static String ABILITY_DMG_TYPE = "mkUltraAbility";
 
     private BaseAbility ability;
+    boolean indirect;
 
     public ResourceLocation getAbilityId() {
         if (isAbility()) {
@@ -38,6 +39,7 @@ public class MKDamageSource extends EntityDamageSourceIndirect {
                           Entity source, @Nullable Entity indirectEntityIn) {
         super(ABILITY_DMG_TYPE, source, indirectEntityIn);
         this.ability = abilityId;
+        this.indirect = source != indirectEntityIn;
     }
 
     public boolean isMagicAbility() {
@@ -48,15 +50,15 @@ public class MKDamageSource extends EntityDamageSourceIndirect {
         return isAbility() && !isMagicDamage();
     }
 
-    public static DamageSource causeIndirectMagicDamage(BaseAbility ability, Entity source,
-                                                        @Nullable Entity indirectEntityIn) {
+    public static DamageSource fromMagicSpell(BaseAbility ability, Entity source,
+                                              @Nullable Entity indirectEntityIn) {
         return new MKDamageSource(ability, ABILITY_DMG_TYPE, source, indirectEntityIn)
                 .setDamageBypassesArmor()
                 .setMagicDamage();
     }
 
-    public static DamageSource causeIndirectMagicDamage(IAbilitySource ability, Entity source,
-                                                        @Nullable Entity indirectEntityIn) {
+    public static DamageSource fromMagicSpell(IAbilitySource ability, Entity source,
+                                              @Nullable Entity indirectEntityIn) {
         return new MKDamageSource(ability.getAbility(), ABILITY_DMG_TYPE, source, indirectEntityIn)
                 .setDamageBypassesArmor()
                 .setMagicDamage();

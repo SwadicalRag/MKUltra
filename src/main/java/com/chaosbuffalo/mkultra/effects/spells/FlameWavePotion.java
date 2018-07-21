@@ -3,7 +3,6 @@ package com.chaosbuffalo.mkultra.effects.spells;
 import com.chaosbuffalo.mkultra.MKUltra;
 import com.chaosbuffalo.mkultra.core.BaseAbility;
 import com.chaosbuffalo.mkultra.core.MKDamageSource;
-import com.chaosbuffalo.mkultra.core.abilities.FlameWave;
 import com.chaosbuffalo.mkultra.effects.SpellCast;
 import com.chaosbuffalo.mkultra.effects.SpellPotionBase;
 import com.chaosbuffalo.targeting_api.Targeting;
@@ -46,6 +45,6 @@ public class FlameWavePotion extends SpellPotionBase {
             damage = damage * 2.0f;
         }
 
-        target.attackEntityFrom(MKDamageSource.causeIndirectMagicDamage(cast, applier, caster), damage);
+        target.attackEntityFrom(MKDamageSource.fromMagicSpell(cast, applier, caster), damage);
     }
 }

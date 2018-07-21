@@ -68,7 +68,7 @@ public class SlayingEdge extends BaseAbility {
         if (targetEntity != null) {
             pData.startAbility(this);
             targetEntity.attackEntityFrom(
-                    MKDamageSource.causeIndirectMagicDamage(this, entity, entity),
+                    MKDamageSource.fromMagicSpell(this, entity, entity),
                     BASE_DAMAGE + DAMAGE_SCALE * level);
             if (!targetEntity.isEntityAlive()){
                 SpellCast slaying_edge = SlayingEdgePotion.Create(this, entity);

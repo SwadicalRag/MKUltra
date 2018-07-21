@@ -3,7 +3,6 @@ package com.chaosbuffalo.mkultra.effects.spells;
 import com.chaosbuffalo.mkultra.MKUltra;
 import com.chaosbuffalo.mkultra.core.BaseAbility;
 import com.chaosbuffalo.mkultra.core.MKDamageSource;
-import com.chaosbuffalo.mkultra.core.abilities.Heal;
 import com.chaosbuffalo.mkultra.effects.SpellCast;
 import com.chaosbuffalo.mkultra.effects.SpellPotionBase;
 import com.chaosbuffalo.targeting_api.Targeting;
@@ -56,7 +55,7 @@ public class ClericHealPotion extends SpellPotionBase {
         float value = cast.getScaledValue(amplifier);
 
         if (target.isEntityUndead()) {
-            target.attackEntityFrom(MKDamageSource.causeIndirectMagicDamage(cast, applier, caster), 2.0f * value);
+            target.attackEntityFrom(MKDamageSource.fromMagicSpell(cast, applier, caster), 2.0f * value);
         } else {
             target.heal(value);
         }
