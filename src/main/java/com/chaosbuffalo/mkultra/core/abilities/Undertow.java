@@ -17,6 +17,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class Undertow extends BaseAbility {
+    public static Undertow INSTANCE = new Undertow();
 
     public static int BASE_DURATION = 15;
     public static int DURATION_SCALE = 15;

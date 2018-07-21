@@ -24,10 +24,6 @@ public class FlameBladeEffectPotion extends SpellPotionBase {
         event.getRegistry().register(INSTANCE.finish());
     }
 
-    public static SpellCast Create(Entity source, float baseDamage, float scaling) {
-        return INSTANCE.newSpellCast(source).setScalingParameters(baseDamage, scaling);
-    }
-
     public static SpellCast Create(BaseAbility ability, Entity source, float baseDamage, float scaling) {
         return INSTANCE.newSpellCast(source, ability).setScalingParameters(baseDamage, scaling);
     }

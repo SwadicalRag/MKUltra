@@ -29,6 +29,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
  */
 @Mod.EventBusSubscriber(modid = MKUltra.MODID)
 public class WhirlpoolPotion extends SpellPeriodicPotionBase {
+    private BaseAbility linkedAbility;
 
     private static final int DEFAULT_PERIOD = 20;
 
@@ -61,7 +62,7 @@ public class WhirlpoolPotion extends SpellPeriodicPotionBase {
 
     @Override
     public void doEffect(Entity source, Entity indirectSource, EntityLivingBase target, int amplifier, SpellCast cast) {
-        target.attackEntityFrom(MKDamageSource.fromMagicAbility(cast, source, indirectSource), amplifier * 2.0f);
+        target.attackEntityFrom(MKDamageSource.causeIndirectMagicDamage(cast, source, indirectSource), amplifier * 2.0f);
         MKUltra.packetHandler.sendToAllAround(
                 new ParticleEffectSpawnPacket(
                         EnumParticleTypes.WATER_SPLASH.getParticleID(),
@@ -69,16 +70,23 @@ public class WhirlpoolPotion extends SpellPeriodicPotionBase {
                         target.posX, target.posY + 1.0f,
                         target.posZ, 1.0, 1.0, 1.0, 2.5,
                         target.getLookVec()),
-                target.dimension, target.posX,
-                target.posY, target.posZ, 50.0f);
+                target, 50.0f);
     }
 
     private void onFall(LivingHurtEvent event, DamageSource source, EntityLivingBase entity) {
-        if (entity.isPotionActive(WhirlpoolPotion.INSTANCE)) {
-            PotionEffect potion = entity.getActivePotionEffect(WhirlpoolPotion.INSTANCE);
-            entity.attackEntityFrom(MKDamageSource.causeIndirectMagicDamage(source.getImmediateSource(),
+        PotionEffect potion = entity.getActivePotionEffect(WhirlpoolPotion.INSTANCE);
+        if (potion != null) {
+            entity.attackEntityFrom(MKDamageSource.causeIndirectMagicDamage(INSTANCE.getAbility(), source.getImmediateSource(),
                     source.getTrueSource()), 8.0f * potion.getAmplifier());
         }
+    }
+
+    public BaseAbility getAbility() {
+        return linkedAbility;
+    }
+
+    public void setAbility(BaseAbility ability) {
+        this.linkedAbility = ability;
     }
 }
 

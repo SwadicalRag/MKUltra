@@ -3,10 +3,7 @@ package com.chaosbuffalo.mkultra.effects.spells;
 import com.chaosbuffalo.mkultra.MKUltra;
 import com.chaosbuffalo.mkultra.core.BaseAbility;
 import com.chaosbuffalo.mkultra.core.abilities.FlameBlade;
-import com.chaosbuffalo.mkultra.effects.AreaEffectBuilder;
-import com.chaosbuffalo.mkultra.effects.SpellCast;
-import com.chaosbuffalo.mkultra.effects.SpellPotionBase;
-import com.chaosbuffalo.mkultra.effects.SpellTriggers;
+import com.chaosbuffalo.mkultra.effects.*;
 import com.chaosbuffalo.mkultra.entities.projectiles.EntityFlameBladeProjectile;
 import com.chaosbuffalo.mkultra.fx.ParticleEffects;
 import com.chaosbuffalo.targeting_api.Targeting;
@@ -25,7 +22,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 
 @Mod.EventBusSubscriber(modid = MKUltra.MODID)
-public class FlameBladePotion extends SpellPotionBase {
+public class FlameBladePotion extends ExclusiveSpellPotionBase {
     public static final FlameBladePotion INSTANCE = new FlameBladePotion();
 
     @SubscribeEvent
@@ -75,7 +72,7 @@ public class FlameBladePotion extends SpellPotionBase {
 
 
     private void onAttackEntity(EntityPlayer player, Entity target, PotionEffect potion) {
-        SpellCast flames = FlameBladeEffectPotion.Create(player, FlameBlade.BASE_DAMAGE, FlameBlade.DAMAGE_SCALE);
+        SpellCast flames = FlameBladeEffectPotion.Create(getAbility(), player, FlameBlade.BASE_DAMAGE, FlameBlade.DAMAGE_SCALE);
         SpellCast particles = ParticlePotion.Create(player,
                 EnumParticleTypes.LAVA.getParticleID(),
                 ParticleEffects.SPHERE_MOTION, false, new Vec3d(1.0, 1.0, 1.0),
@@ -92,6 +89,7 @@ public class FlameBladePotion extends SpellPotionBase {
         {
             World world = player.getEntityWorld();
             EntityFlameBladeProjectile flamep = new EntityFlameBladeProjectile(world, player);
+            flamep.setAbility(getAbility());
             flamep.setAmplifier(potion.getAmplifier());
             flamep.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, FlameBlade.PROJECTILE_SPEED,
                     FlameBlade.PROJECTILE_INACCURACY);

@@ -3,6 +3,7 @@ package com.chaosbuffalo.mkultra.core.abilities;
 import com.chaosbuffalo.mkultra.MKUltra;
 import com.chaosbuffalo.mkultra.core.BaseAbility;
 import com.chaosbuffalo.mkultra.core.IPlayerData;
+import com.chaosbuffalo.mkultra.effects.spells.WhirlpoolPotion;
 import com.chaosbuffalo.mkultra.entities.projectiles.EntityWhirlpoolProjectile;
 import com.chaosbuffalo.mkultra.fx.ParticleEffects;
 import com.chaosbuffalo.mkultra.network.packets.server.ParticleEffectSpawnPacket;
@@ -22,6 +23,7 @@ public class Whirlpool extends BaseAbility {
 
     public Whirlpool() {
         super(MKUltra.MODID, "ability.whirlpool");
+        WhirlpoolPotion.INSTANCE.setAbility(this);
     }
 
     @Override

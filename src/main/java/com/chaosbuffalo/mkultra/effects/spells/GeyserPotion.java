@@ -56,7 +56,7 @@ public class GeyserPotion extends SpellPotionBase {
             target.addPotionEffect(new PotionEffect(MobEffects.LEVITATION, baseDuration, amplifier, false, true));
             target.addPotionEffect(FeatherFallPotion.Create(cast.getAbility(), caster).setTarget(target).toPotionEffect(baseDuration + 40, amplifier));
         } else {
-            target.attackEntityFrom(MKDamageSource.fromMagicAbility(cast, applier, caster), cast.getScaledValue(amplifier));
+            target.attackEntityFrom(MKDamageSource.causeIndirectMagicDamage(cast, applier, caster), cast.getScaledValue(amplifier));
             target.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, baseDuration * 2, amplifier, false, true));
             target.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, baseDuration, amplifier, false, true));
         }

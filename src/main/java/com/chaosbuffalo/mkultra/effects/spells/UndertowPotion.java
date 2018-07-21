@@ -4,6 +4,7 @@ import com.chaosbuffalo.mkultra.MKUltra;
 import com.chaosbuffalo.mkultra.core.BaseAbility;
 import com.chaosbuffalo.mkultra.core.MKDamageSource;
 import com.chaosbuffalo.mkultra.core.abilities.Undertow;
+import com.chaosbuffalo.mkultra.effects.ExclusiveSpellPotionBase;
 import com.chaosbuffalo.mkultra.effects.SpellCast;
 import com.chaosbuffalo.mkultra.effects.SpellPotionBase;
 import com.chaosbuffalo.mkultra.effects.SpellTriggers;
@@ -20,7 +21,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 
 @Mod.EventBusSubscriber(modid = MKUltra.MODID)
-public class UndertowPotion extends SpellPotionBase {
+public class UndertowPotion extends ExclusiveSpellPotionBase {
     public static final UndertowPotion INSTANCE = new UndertowPotion();
 
 
@@ -73,8 +74,8 @@ public class UndertowPotion extends SpellPotionBase {
     private void onAttackEntity(EntityPlayer player, Entity target, PotionEffect effect) {
         if (target instanceof EntityLivingBase) {
             EntityLivingBase livingEnt = (EntityLivingBase) target;
-            if (livingEnt.isPotionActive(DrownPotion.INSTANCE)) {
-                livingEnt.attackEntityFrom(MKDamageSource.causeIndirectMagicDamage(new Undertow().getAbilityId(), livingEnt, player),
+            if (livingEnt.isPotionActive(INSTANCE)) {
+                livingEnt.attackEntityFrom(MKDamageSource.causeIndirectMagicDamage(getAbility(), livingEnt, player),
                         5.0f * effect.getAmplifier());
             }
         }
