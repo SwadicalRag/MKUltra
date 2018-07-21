@@ -1,6 +1,6 @@
 package com.chaosbuffalo.mkultra.core;
 
-import com.chaosbuffalo.mkultra.effects.spells.InstantIndirectDamagePotion;
+import com.chaosbuffalo.mkultra.effects.spells.MeleeDamagePotion;
 import com.chaosbuffalo.mkultra.effects.spells.InstantIndirectMagicDamagePotion;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.DamageSource;
@@ -47,7 +47,7 @@ public class MKDamageSource extends EntityDamageSourceIndirect {
     }
 
     public boolean isMeleeAbility() {
-        return isAbility() && ability.getAbilityId().equals(InstantIndirectDamagePotion.INDIRECT_DMG_ABILITY_ID);
+        return isAbility() && ability.getAbilityId().equals(MeleeDamagePotion.INDIRECT_DMG_ABILITY_ID);
     }
 
     public static DamageSource causeIndirectMagicDamage(ResourceLocation abilityId, Entity source,
