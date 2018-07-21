@@ -39,13 +39,12 @@ public class EntityWhirlpoolProjectile extends EntityBaseProjectile {
     @Override
     protected boolean onImpact(EntityLivingBase caster, RayTraceResult result, int amplifier) {
         if (!this.world.isRemote && caster != null) {
-            SpellCast yank = YankPotion.Create(caster);
-            SpellCast whirlpool = WhirlpoolPotion.Create(caster);
-//            SpellCast damagePotion = InstantIndirectMagicDamagePotion.Create(caster, 2.0f, 2.0f);
+            SpellCast yank = YankPotion.Create(getAbility(), this, caster);
+            SpellCast whirlpool = WhirlpoolPotion.Create(getAbility(), caster);
+
             AreaEffectBuilder.Create(caster, this)
                     .spellCast(yank, amplifier - 1, Targeting.TargetType.ENEMY)
                     .spellCast(whirlpool, GameConstants.TICKS_PER_SECOND * 2 * amplifier, amplifier, Targeting.TargetType.ENEMY)
-//                    .spellCast(damagePotion, amplifier, Targeting.TargetType.ENEMY)
                     .duration(80).waitTime(0)
                     .period(20)
                     .color(39935).radius(3.0f, true)
@@ -68,7 +67,7 @@ public class EntityWhirlpoolProjectile extends EntityBaseProjectile {
                             this.posX, this.posY + 1.0,
                             this.posZ, 1.5, 2.0, 1.5, 1.0,
                             new Vec3d(0., 1.0, 0.0)),
-                    this.dimension, this.posX, this.posY, this.posZ, 50.0f);
+                    this, 50.0f);
             return false;
         }
         return false;

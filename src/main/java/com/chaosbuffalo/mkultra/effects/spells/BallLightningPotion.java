@@ -1,6 +1,7 @@
 package com.chaosbuffalo.mkultra.effects.spells;
 
 import com.chaosbuffalo.mkultra.MKUltra;
+import com.chaosbuffalo.mkultra.core.BaseAbility;
 import com.chaosbuffalo.mkultra.core.MKDamageSource;
 import com.chaosbuffalo.mkultra.effects.SpellCast;
 import com.chaosbuffalo.mkultra.effects.SpellPotionBase;
@@ -22,8 +23,8 @@ public class BallLightningPotion extends SpellPotionBase {
         event.getRegistry().register(INSTANCE.finish());
     }
 
-    public static SpellCast Create(Entity source, float baseDamage, float scaling) {
-        return INSTANCE.newSpellCast(source).setScalingParameters(baseDamage, scaling);
+    public static SpellCast Create(BaseAbility ability, Entity source, float baseDamage, float scaling) {
+        return INSTANCE.newSpellCast(source, ability).setScalingParameters(baseDamage, scaling);
     }
 
     private BallLightningPotion() {

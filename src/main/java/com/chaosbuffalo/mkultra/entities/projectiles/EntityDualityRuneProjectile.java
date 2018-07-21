@@ -41,7 +41,7 @@ public class EntityDualityRuneProjectile extends EntityBaseProjectile {
     @Override
     protected boolean onGroundProc(EntityLivingBase caster, int amplifier) {
         if (!this.world.isRemote && caster != null) {
-            SpellCast heal = ClericHealPotion.Create(caster, BASE, SCALE);
+            SpellCast heal = ClericHealPotion.Create(getAbility(), caster, BASE, SCALE);
             SpellCast damage = InstantIndirectMagicDamagePotion.Create(caster, BASE, SCALE);
 
             AreaEffectBuilder.Create(caster, this)

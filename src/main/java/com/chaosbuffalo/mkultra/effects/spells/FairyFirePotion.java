@@ -1,6 +1,7 @@
 package com.chaosbuffalo.mkultra.effects.spells;
 
 import com.chaosbuffalo.mkultra.MKUltra;
+import com.chaosbuffalo.mkultra.core.BaseAbility;
 import com.chaosbuffalo.mkultra.core.MKDamageSource;
 import com.chaosbuffalo.mkultra.core.PlayerAttributes;
 import com.chaosbuffalo.mkultra.core.abilities.FairyFire;
@@ -40,8 +41,8 @@ public class FairyFirePotion extends SpellPeriodicPotionBase {
         event.getRegistry().register(INSTANCE.finish());
     }
 
-    public static SpellCast Create(Entity source) {
-        return INSTANCE.newSpellCast(source);
+    public static SpellCast Create(BaseAbility ability, Entity source) {
+        return INSTANCE.newSpellCast(source, ability);
     }
 
     private FairyFirePotion() {
@@ -61,7 +62,7 @@ public class FairyFirePotion extends SpellPeriodicPotionBase {
 
     @Override
     public void doEffect(Entity source, Entity indirectSource, EntityLivingBase target, int amplifier, SpellCast cast) {
-        target.attackEntityFrom(MKDamageSource.causeIndirectMagicDamage(new FairyFire().getAbilityId(), source, indirectSource), amplifier * 1.0f);
+        target.attackEntityFrom(MKDamageSource.causeIndirectMagicDamage(cast, source, indirectSource), amplifier * 1.0f);
         MKUltra.packetHandler.sendToAllAround(
                 new ParticleEffectSpawnPacket(
                         EnumParticleTypes.SPELL_INSTANT.getParticleID(),

@@ -74,7 +74,7 @@ public class HeavingSeas extends BaseAbility {
                 ParticleEffects.CIRCLE_PILLAR_MOTION, false, new Vec3d(1.0, 1.0, 1.0),
                 new Vec3d(0.0, 1.0, 0.0), 40, 5, 1.0);
 
-        SpellCast heavingSeas = HeavingSeasPotion.Create(entity);
+        SpellCast heavingSeas = HeavingSeasPotion.Create(this, entity);
 
         AreaEffectBuilder.Create(entity, entity)
                 .spellCast(damage, level, getTargetType())

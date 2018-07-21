@@ -72,7 +72,7 @@ public class Heal extends BaseAbility {
 
         pData.startAbility(this);
 
-        SpellCast heal = ClericHealPotion.Create(entity, BASE_VALUE, VALUE_SCALE).setTarget(targetEntity);
+        SpellCast heal = ClericHealPotion.Create(this, entity, BASE_VALUE, VALUE_SCALE).setTarget(targetEntity);
         targetEntity.addPotionEffect(heal.toPotionEffect(level));
 
         Vec3d lookVec = entity.getLookVec();

@@ -4,6 +4,7 @@ import com.chaosbuffalo.mkultra.GameConstants;
 import com.chaosbuffalo.mkultra.MKUltra;
 import com.chaosbuffalo.mkultra.core.BaseAbility;
 import com.chaosbuffalo.mkultra.core.IPlayerData;
+import com.chaosbuffalo.mkultra.core.MKDamageSource;
 import com.chaosbuffalo.mkultra.effects.AreaEffectBuilder;
 import com.chaosbuffalo.mkultra.effects.SpellCast;
 import com.chaosbuffalo.mkultra.effects.spells.ParticlePotion;
@@ -13,7 +14,6 @@ import com.chaosbuffalo.mkultra.network.packets.server.ParticleEffectSpawnPacket
 import com.chaosbuffalo.targeting_api.Targeting;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -68,10 +68,10 @@ public class SlayingEdge extends BaseAbility {
         if (targetEntity != null) {
             pData.startAbility(this);
             targetEntity.attackEntityFrom(
-                    DamageSource.causeIndirectMagicDamage(entity, entity),
+                    MKDamageSource.causeIndirectMagicDamage(this, entity, entity),
                     BASE_DAMAGE + DAMAGE_SCALE * level);
             if (!targetEntity.isEntityAlive()){
-                SpellCast slaying_edge = SlayingEdgePotion.Create(entity);
+                SpellCast slaying_edge = SlayingEdgePotion.Create(this, entity);
                 SpellCast particlePotion = ParticlePotion.Create(entity,
                         EnumParticleTypes.SPELL_MOB.getParticleID(),
                         ParticleEffects.SPHERE_MOTION, false, new Vec3d(1.0, 1.0, 1.0),

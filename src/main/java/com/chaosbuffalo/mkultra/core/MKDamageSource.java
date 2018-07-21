@@ -57,6 +57,20 @@ public class MKDamageSource extends EntityDamageSourceIndirect {
                 .setMagicDamage();
     }
 
+    public static DamageSource causeIndirectMagicDamage(BaseAbility ability, Entity source,
+                                                        @Nullable Entity indirectEntityIn) {
+        return new MKDamageSource(ability, ABILITY_DMG_TYPE, source, indirectEntityIn)
+                .setDamageBypassesArmor()
+                .setMagicDamage();
+    }
+
+    public static DamageSource causeIndirectMagicDamage(IAbilitySource ability, Entity source,
+                                                        @Nullable Entity indirectEntityIn) {
+        return new MKDamageSource(ability.getAbility(), ABILITY_DMG_TYPE, source, indirectEntityIn)
+                .setDamageBypassesArmor()
+                .setMagicDamage();
+    }
+
     public static DamageSource fromMagicAbility(IAbilitySource ability, Entity source,
                                                 @Nullable Entity indirectEntityIn) {
         return new MKDamageSource(ability.getAbility(), ABILITY_DMG_TYPE, source, indirectEntityIn)

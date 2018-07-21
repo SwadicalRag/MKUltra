@@ -81,7 +81,7 @@ public class SwiftsRodeoHeartbreak extends BaseToggleSetAbility {
     @Override
     public void applyEffect(EntityPlayer entity, IPlayerData pData, World theWorld) {
         int level = pData.getLevelForAbility(getAbilityId());
-        entity.addPotionEffect(SwiftsRodeoHBSongPotion.Create(entity).setTarget(entity)
+        entity.addPotionEffect(SwiftsRodeoHBSongPotion.Create(this, entity).setTarget(entity)
                 .toPotionEffect(BASE_DURATION, level));
         Vec3d lookVec = entity.getLookVec();
         MKUltra.packetHandler.sendToAllAround(

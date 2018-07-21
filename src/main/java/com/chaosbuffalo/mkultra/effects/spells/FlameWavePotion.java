@@ -46,7 +46,6 @@ public class FlameWavePotion extends SpellPotionBase {
             damage = damage * 2.0f;
         }
 
-        target.attackEntityFrom(MKDamageSource.causeIndirectMagicDamage(
-                new FlameWave().getAbilityId(), applier, caster), damage);
+        target.attackEntityFrom(MKDamageSource.causeIndirectMagicDamage(cast, applier, caster), damage);
     }
 }

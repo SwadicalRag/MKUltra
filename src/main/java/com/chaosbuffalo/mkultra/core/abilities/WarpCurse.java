@@ -62,7 +62,7 @@ public class WarpCurse extends BaseAbility {
         if (targetEntity != null) {
             pData.startAbility(this);
 
-            targetEntity.addPotionEffect(WarpCursePotion.Create(entity)
+            targetEntity.addPotionEffect(WarpCursePotion.Create(this, entity)
                     .setTarget(targetEntity)
                     .toPotionEffect(GameConstants.TICKS_PER_SECOND * level * 4, level));
             targetEntity.addPotionEffect(

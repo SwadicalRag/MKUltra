@@ -48,9 +48,9 @@ public class EntityBallLightningProjectile extends EntityBaseProjectile {
             return false;
         }
 
-        if (result.entityHit != null && entity instanceof EntityPlayer && result.entityHit instanceof EntityLivingBase) {
+        if (entity instanceof EntityPlayer && result.entityHit instanceof EntityLivingBase) {
             EntityLivingBase targetEntity = (EntityLivingBase) result.entityHit;
-            SpellCast ballLightning = BallLightningPotion.Create(entity, 5.0f, 5.0f);
+            SpellCast ballLightning = BallLightningPotion.Create(getAbility(), entity, 5.0f, 5.0f);
             ballLightning.link(this);
 
             AreaEffectBuilder.Create(entity, this)
@@ -96,7 +96,7 @@ public class EntityBallLightningProjectile extends EntityBaseProjectile {
     @Override
     protected void onAirProc(EntityLivingBase caster, int amplifier) {
         if (caster != null) {
-            SpellCast ballLightning = BallLightningPotion.Create(caster, 4.0f, 4.0f);
+            SpellCast ballLightning = BallLightningPotion.Create(getAbility(), caster, 4.0f, 4.0f);
             ballLightning.link(this);
             this.setTicksInAir(0);
             MKUltra.packetHandler.sendToAllAround(

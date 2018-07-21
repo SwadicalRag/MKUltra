@@ -1,6 +1,7 @@
 package com.chaosbuffalo.mkultra.effects.spells;
 
 import com.chaosbuffalo.mkultra.MKUltra;
+import com.chaosbuffalo.mkultra.core.BaseAbility;
 import com.chaosbuffalo.mkultra.core.MKDamageSource;
 import com.chaosbuffalo.mkultra.core.abilities.Whirlpool;
 import com.chaosbuffalo.mkultra.effects.SpellCast;
@@ -38,8 +39,8 @@ public class WhirlpoolPotion extends SpellPeriodicPotionBase {
         event.getRegistry().register(INSTANCE.finish());
     }
 
-    public static SpellCast Create(Entity source) {
-        return INSTANCE.newSpellCast(source);
+    public static SpellCast Create(BaseAbility ability, Entity source) {
+        return INSTANCE.newSpellCast(source, ability);
     }
 
     private WhirlpoolPotion() {
@@ -60,7 +61,7 @@ public class WhirlpoolPotion extends SpellPeriodicPotionBase {
 
     @Override
     public void doEffect(Entity source, Entity indirectSource, EntityLivingBase target, int amplifier, SpellCast cast) {
-        target.attackEntityFrom(MKDamageSource.causeIndirectMagicDamage(new Whirlpool().getAbilityId(), source, indirectSource), amplifier * 2.0f);
+        target.attackEntityFrom(MKDamageSource.fromMagicAbility(cast, source, indirectSource), amplifier * 2.0f);
         MKUltra.packetHandler.sendToAllAround(
                 new ParticleEffectSpawnPacket(
                         EnumParticleTypes.WATER_SPLASH.getParticleID(),
@@ -75,7 +76,7 @@ public class WhirlpoolPotion extends SpellPeriodicPotionBase {
     private void onFall(LivingHurtEvent event, DamageSource source, EntityLivingBase entity) {
         if (entity.isPotionActive(WhirlpoolPotion.INSTANCE)) {
             PotionEffect potion = entity.getActivePotionEffect(WhirlpoolPotion.INSTANCE);
-            entity.attackEntityFrom(DamageSource.causeIndirectMagicDamage(source.getImmediateSource(),
+            entity.attackEntityFrom(MKDamageSource.causeIndirectMagicDamage(source.getImmediateSource(),
                     source.getTrueSource()), 8.0f * potion.getAmplifier());
         }
     }

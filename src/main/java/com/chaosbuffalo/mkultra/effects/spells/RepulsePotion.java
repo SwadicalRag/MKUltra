@@ -1,6 +1,7 @@
 package com.chaosbuffalo.mkultra.effects.spells;
 
 import com.chaosbuffalo.mkultra.MKUltra;
+import com.chaosbuffalo.mkultra.core.BaseAbility;
 import com.chaosbuffalo.mkultra.effects.SpellCast;
 import com.chaosbuffalo.mkultra.effects.SpellPotionBase;
 import com.chaosbuffalo.targeting_api.Targeting;
@@ -25,8 +26,8 @@ public class RepulsePotion extends SpellPotionBase {
         event.getRegistry().register(INSTANCE.finish());
     }
 
-    public static SpellCast Create(Entity source, float base, float scale) {
-        return INSTANCE.newSpellCast(source).setScalingParameters(base, scale);
+    public static SpellCast Create(BaseAbility ability, Entity source, float base, float scale) {
+        return INSTANCE.newSpellCast(source, ability).setScalingParameters(base, scale);
     }
 
     private RepulsePotion() {

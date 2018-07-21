@@ -63,7 +63,7 @@ public class Undertow extends BaseAbility {
 
         // What to do for each target hit
         int duration = (BASE_DURATION + DURATION_SCALE * level) * GameConstants.TICKS_PER_SECOND;
-        SpellCast undertow = UndertowPotion.Create(entity);
+        SpellCast undertow = UndertowPotion.Create(this, entity);
         SpellCast particlePotion = ParticlePotion.Create(entity,
                 EnumParticleTypes.WATER_BUBBLE.getParticleID(),
                 ParticleEffects.DIRECTED_SPOUT, false, new Vec3d(1.0, 1.5, 1.0),

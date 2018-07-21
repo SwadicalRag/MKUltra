@@ -60,7 +60,7 @@ public class Repulse extends BaseAbility {
         int level = pData.getLevelForAbility(getAbilityId());
 
         // What to do for each target hit
-        SpellCast repulse = RepulsePotion.Create(entity, BASE_FORCE, FORCE_SCALE);
+        SpellCast repulse = RepulsePotion.Create(this, entity, BASE_FORCE, FORCE_SCALE);
 
         AreaEffectBuilder.Create(entity, entity)
                 .spellCast(repulse, level, getTargetType())

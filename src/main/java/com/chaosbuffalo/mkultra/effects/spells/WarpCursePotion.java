@@ -1,6 +1,7 @@
 package com.chaosbuffalo.mkultra.effects.spells;
 
 import com.chaosbuffalo.mkultra.MKUltra;
+import com.chaosbuffalo.mkultra.core.BaseAbility;
 import com.chaosbuffalo.mkultra.core.MKDamageSource;
 import com.chaosbuffalo.mkultra.core.abilities.WarpCurse;
 import com.chaosbuffalo.mkultra.effects.SpellCast;
@@ -30,8 +31,8 @@ public class WarpCursePotion extends SpellPeriodicPotionBase {
         event.getRegistry().register(INSTANCE.finish());
     }
 
-    public static SpellCast Create(Entity source) {
-        return INSTANCE.newSpellCast(source);
+    public static SpellCast Create(BaseAbility ability, Entity source) {
+        return INSTANCE.newSpellCast(source, ability);
     }
 
     private WarpCursePotion() {
@@ -52,8 +53,7 @@ public class WarpCursePotion extends SpellPeriodicPotionBase {
     @Override
     public void doEffect(Entity source, Entity indirectSource, EntityLivingBase target, int amplifier, SpellCast cast) {
         Vec3d playerOrigin = target.getPositionVector();
-        target.attackEntityFrom(MKDamageSource.causeIndirectMagicDamage(
-                new WarpCurse().getAbilityId(), source, indirectSource), amplifier * 3.0f);
+        target.attackEntityFrom(MKDamageSource.causeIndirectMagicDamage(cast, source, indirectSource), amplifier * 3.0f);
         double nextX = playerOrigin.x + (target.getRNG().nextInt(amplifier * 6) - target.getRNG().nextInt(amplifier * 6));
         double nextY = playerOrigin.y + 5.0;
         double nextZ = playerOrigin.z + (target.getRNG().nextInt(amplifier * 6) - target.getRNG().nextInt(amplifier * 6));

@@ -47,9 +47,9 @@ public class EntityFlameBladeProjectile extends EntityBaseProjectile{
             return false;
         }
 
-        if (result.entityHit != null && entity instanceof EntityPlayer && result.entityHit instanceof EntityLivingBase) {
+        if (entity instanceof EntityPlayer && result.entityHit instanceof EntityLivingBase) {
             EntityLivingBase targetEntity = (EntityLivingBase) result.entityHit;
-            SpellCast flameblade_projectile = FlameBladeEffectPotion.Create(entity, 1.0f, 1.0f);
+            SpellCast flameblade_projectile = FlameBladeEffectPotion.Create(getAbility(), entity, 1.0f, 1.0f);
 
 
             AreaEffectBuilder.Create(entity, this)

@@ -1,7 +1,7 @@
 package com.chaosbuffalo.mkultra.entities.projectiles;
 
 import com.chaosbuffalo.mkultra.core.BaseAbility;
-import com.chaosbuffalo.mkultra.core.IAbilitySource;
+import com.chaosbuffalo.mkultra.core.IAbilityLink;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockReed;
@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.UUID;
 
 
-public abstract class EntityBaseProjectile extends Entity implements IProjectile, IThrowableEntity, IAbilitySource {
+public abstract class EntityBaseProjectile extends Entity implements IProjectile, IThrowableEntity, IAbilityLink {
     private int xTile;
     private int yTile;
     private int zTile;

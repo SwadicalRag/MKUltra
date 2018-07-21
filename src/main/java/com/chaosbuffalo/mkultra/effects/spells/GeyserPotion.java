@@ -2,6 +2,8 @@ package com.chaosbuffalo.mkultra.effects.spells;
 
 import com.chaosbuffalo.mkultra.GameConstants;
 import com.chaosbuffalo.mkultra.MKUltra;
+import com.chaosbuffalo.mkultra.core.BaseAbility;
+import com.chaosbuffalo.mkultra.core.MKDamageSource;
 import com.chaosbuffalo.mkultra.effects.SpellCast;
 import com.chaosbuffalo.mkultra.effects.SpellPotionBase;
 import com.chaosbuffalo.targeting_api.Targeting;
@@ -27,8 +29,8 @@ public class GeyserPotion extends SpellPotionBase {
         event.getRegistry().register(INSTANCE.finish());
     }
 
-    public static SpellCast Create(Entity source, float base, float scale) {
-        return INSTANCE.newSpellCast(source).setScalingParameters(base, scale);
+    public static SpellCast Create(BaseAbility ability, Entity source, float base, float scale) {
+        return INSTANCE.newSpellCast(source, ability).setScalingParameters(base, scale);
     }
 
     private GeyserPotion() {
@@ -52,9 +54,9 @@ public class GeyserPotion extends SpellPotionBase {
         int baseDuration = 2 * GameConstants.TICKS_PER_SECOND * amplifier;
         if (Targeting.isValidTarget(Targeting.TargetType.FRIENDLY, caster, target, !canSelfCast())) {
             target.addPotionEffect(new PotionEffect(MobEffects.LEVITATION, baseDuration, amplifier, false, true));
-            target.addPotionEffect(FeatherFallPotion.Create(caster).setTarget(target).toPotionEffect(baseDuration + 40, amplifier));
+            target.addPotionEffect(FeatherFallPotion.Create(cast.getAbility(), caster).setTarget(target).toPotionEffect(baseDuration + 40, amplifier));
         } else {
-            target.attackEntityFrom(DamageSource.causeIndirectMagicDamage(applier, caster), cast.getScaledValue(amplifier));
+            target.attackEntityFrom(MKDamageSource.fromMagicAbility(cast, applier, caster), cast.getScaledValue(amplifier));
             target.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, baseDuration * 2, amplifier, false, true));
             target.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, baseDuration, amplifier, false, true));
         }

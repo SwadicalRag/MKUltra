@@ -59,7 +59,7 @@ public class PowerWordSummon extends BaseAbility {
         EntityLivingBase targetEntity = getSingleLivingTarget(entity, getDistance(level));
         if (targetEntity != null) {
             pData.startAbility(this);
-            targetEntity.addPotionEffect(WarpTargetPotion.Create(entity).setTarget(targetEntity).toPotionEffect(level));
+            targetEntity.addPotionEffect(WarpTargetPotion.Create(this, entity).setTarget(targetEntity).toPotionEffect(level));
             targetEntity.addPotionEffect(
                     new PotionEffect(MobEffects.SLOWNESS,
                             (4 + level) * GameConstants.TICKS_PER_SECOND, 100, false, true));

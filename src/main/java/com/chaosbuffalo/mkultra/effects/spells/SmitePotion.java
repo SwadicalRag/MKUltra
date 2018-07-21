@@ -1,6 +1,7 @@
 package com.chaosbuffalo.mkultra.effects.spells;
 
 import com.chaosbuffalo.mkultra.MKUltra;
+import com.chaosbuffalo.mkultra.core.BaseAbility;
 import com.chaosbuffalo.mkultra.core.MKDamageSource;
 import com.chaosbuffalo.mkultra.core.abilities.Smite;
 import com.chaosbuffalo.mkultra.effects.SpellCast;
@@ -23,8 +24,8 @@ public class SmitePotion extends SpellPotionBase {
         event.getRegistry().register(INSTANCE.finish());
     }
 
-    public static SpellCast Create(Entity source, EntityLivingBase target, float damageBase, float damageScale) {
-        return INSTANCE.newSpellCast(source).setTarget(target).setScalingParameters(damageBase, damageScale);
+    public static SpellCast Create(BaseAbility ability, Entity source, EntityLivingBase target, float damageBase, float damageScale) {
+        return INSTANCE.newSpellCast(source, ability).setTarget(target).setScalingParameters(damageBase, damageScale);
     }
 
     private SmitePotion() {
@@ -45,8 +46,7 @@ public class SmitePotion extends SpellPotionBase {
         if (target.isEntityUndead()) {
             damage *= 2.0f;
         }
-        target.attackEntityFrom(MKDamageSource.causeIndirectMagicDamage(
-                new Smite().getAbilityId(), applier, caster), damage);
+        target.attackEntityFrom(MKDamageSource.causeIndirectMagicDamage(cast, applier, caster), damage);
 
     }
 }

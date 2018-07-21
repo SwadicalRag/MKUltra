@@ -66,6 +66,7 @@ public class PoisonArrow extends BaseAbility {
         pData.startAbility(this);
 
         SpellCastArrow arrow = new SpellCastArrow(theWorld, entity);
+        arrow.setAbility(this);
         arrow.shoot(entity, entity.rotationPitch, entity.rotationYaw, 0.0F, 3.0F, 1.0F);
         arrow.setDamage(BASE_ARROW_DAMAGE + level * SCALE_ARROW_DAMAGE);
         arrow.addEffect(new PotionEffect(MobEffects.POISON, 9 * GameConstants.TICKS_PER_SECOND, level, false, true));

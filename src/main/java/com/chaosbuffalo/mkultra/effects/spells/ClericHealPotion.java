@@ -1,6 +1,7 @@
 package com.chaosbuffalo.mkultra.effects.spells;
 
 import com.chaosbuffalo.mkultra.MKUltra;
+import com.chaosbuffalo.mkultra.core.BaseAbility;
 import com.chaosbuffalo.mkultra.core.MKDamageSource;
 import com.chaosbuffalo.mkultra.core.abilities.Heal;
 import com.chaosbuffalo.mkultra.effects.SpellCast;
@@ -23,12 +24,8 @@ public class ClericHealPotion extends SpellPotionBase {
         event.getRegistry().register(INSTANCE.finish());
     }
 
-    public static SpellCast Create(Entity source, EntityLivingBase target, float base, float scaling) {
-        return Create(source, base, scaling).setTarget(target);
-    }
-
-    public static SpellCast Create(Entity source, float base, float scaling) {
-        return INSTANCE.newSpellCast(source)
+    public static SpellCast Create(BaseAbility ability, Entity source, float base, float scaling) {
+        return INSTANCE.newSpellCast(source, ability)
                 .setScalingParameters(base, scaling);
     }
 
@@ -59,7 +56,7 @@ public class ClericHealPotion extends SpellPotionBase {
         float value = cast.getScaledValue(amplifier);
 
         if (target.isEntityUndead()) {
-            target.attackEntityFrom(MKDamageSource.causeIndirectMagicDamage(new Heal().getAbilityId(), applier, caster), 2.0f * value);
+            target.attackEntityFrom(MKDamageSource.causeIndirectMagicDamage(cast, applier, caster), 2.0f * value);
         } else {
             target.heal(value);
         }

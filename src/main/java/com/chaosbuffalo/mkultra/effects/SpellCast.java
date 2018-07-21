@@ -1,7 +1,7 @@
 package com.chaosbuffalo.mkultra.effects;
 
 import com.chaosbuffalo.mkultra.core.BaseAbility;
-import com.chaosbuffalo.mkultra.core.IAbilitySource;
+import com.chaosbuffalo.mkultra.core.IAbilityLink;
 import com.chaosbuffalo.mkultra.log.Log;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class SpellCast implements IAbilitySource {
+public class SpellCast implements IAbilityLink {
 
     private static Map<UUID, Map<SpellPotionBase, SpellCast>> allCasts =
             new HashMap<>(new HashMap<>());

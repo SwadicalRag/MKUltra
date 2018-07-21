@@ -54,7 +54,7 @@ public class EntityFairyFireProjectile extends EntityBaseProjectile {
 
         if (entity instanceof EntityPlayer && result.entityHit instanceof EntityLivingBase) {
             EntityLivingBase targetEntity = (EntityLivingBase) result.entityHit;
-            SpellCast fairyFire = FairyFirePotion.Create(entity);
+            SpellCast fairyFire = FairyFirePotion.Create(getAbility(), entity);
             AreaEffectBuilder.Create(entity, this)
                     .spellCast(fairyFire, 10 * GameConstants.TICKS_PER_SECOND, level, Targeting.TargetType.ENEMY)
                     .effect(new PotionEffect(MobEffects.GLOWING, 10 * GameConstants.TICKS_PER_SECOND), Targeting.TargetType.ENEMY)
@@ -62,7 +62,7 @@ public class EntityFairyFireProjectile extends EntityBaseProjectile {
                     .color(11540991).radius(3.0f, true)
                     .spawn();
 
-            targetEntity.addPotionEffect(FairyFirePotion.Create(entity).setTarget(targetEntity).toPotionEffect(GameConstants.TICKS_PER_SECOND * 3, level));
+            targetEntity.addPotionEffect(FairyFirePotion.Create(getAbility(), entity).setTarget(targetEntity).toPotionEffect(GameConstants.TICKS_PER_SECOND * 3, level));
 
 
             Vec3d lookVec = entity.getLookVec();

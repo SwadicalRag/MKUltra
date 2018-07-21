@@ -47,8 +47,7 @@ public class IgnitePotion extends SpellPotionBase {
 
         float damage = cast.getScaledValue(amplifier);
         target.setFire(amplifier * 4);
-        target.attackEntityFrom(MKDamageSource.causeIndirectMagicDamage(
-                new Ignite().getAbilityId(), applier, caster), damage);
+        target.attackEntityFrom(MKDamageSource.causeIndirectMagicDamage(cast, applier, caster), damage);
         Vec3d lookVec = target.getLookVec();
         MKUltra.packetHandler.sendToAllAround(
                 new ParticleEffectSpawnPacket(

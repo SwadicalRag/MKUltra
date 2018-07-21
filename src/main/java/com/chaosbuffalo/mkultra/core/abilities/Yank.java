@@ -60,7 +60,7 @@ public class Yank extends BaseAbility {
         if (targetEntity != null) {
             pData.startAbility(this);
 
-            targetEntity.addPotionEffect(YankPotion.Create(entity, targetEntity).toPotionEffect(level));
+            targetEntity.addPotionEffect(YankPotion.Create(this, entity, targetEntity).toPotionEffect(level));
 
             Vec3d partHeading = targetEntity.getPositionVector()
                     .add(new Vec3d(0.0, 1.0, 0.0))

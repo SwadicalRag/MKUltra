@@ -61,7 +61,7 @@ public class LifeSpring  extends BaseAbility {
         int level = pData.getLevelForAbility(getAbilityId());
 
         // What to do for each target hit
-        SpellCast heal = ClericHealPotion.Create(entity, BASE, SCALE);
+        SpellCast heal = ClericHealPotion.Create(this, entity, BASE, SCALE);
         SpellCast particle = ParticlePotion.Create(entity,
                 EnumParticleTypes.VILLAGER_HAPPY.getParticleID(),
                 ParticleEffects.CIRCLE_MOTION, false, new Vec3d(1.0, 1.0, 1.0),

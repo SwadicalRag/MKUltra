@@ -63,7 +63,7 @@ public class Smite extends BaseAbility {
         if (targetEntity != null) {
             pData.startAbility(this);
 
-            targetEntity.addPotionEffect(SmitePotion.Create(entity, targetEntity, BASE_DAMAGE, DAMAGE_SCALE).toPotionEffect(level));
+            targetEntity.addPotionEffect(SmitePotion.Create(this, entity, targetEntity, BASE_DAMAGE, DAMAGE_SCALE).toPotionEffect(level));
             targetEntity.addPotionEffect(
                     new PotionEffect(MobEffects.SLOWNESS,
                             GameConstants.TICKS_PER_SECOND * level, 100, false, true));

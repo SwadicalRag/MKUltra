@@ -1,6 +1,7 @@
 package com.chaosbuffalo.mkultra.effects.spells;
 
 import com.chaosbuffalo.mkultra.MKUltra;
+import com.chaosbuffalo.mkultra.core.MKDamageSource;
 import com.chaosbuffalo.mkultra.core.MKUPlayerData;
 import com.chaosbuffalo.mkultra.effects.SpellCast;
 import com.chaosbuffalo.mkultra.effects.SpellPeriodicPotionBase;
@@ -101,7 +102,7 @@ public class MoonTrancePotion extends SpellPeriodicPotionBase {
             PotionEffect effect = livingTarget.getActivePotionEffect(MoonTrancePotion.INSTANCE);
             if (effect != null) {
                 Log.debug("Attacking %s due to %s", livingSource.getName(), effect.getPotion().getRegistryName());
-                livingSource.attackEntityFrom(DamageSource.causeIndirectMagicDamage(livingTarget, livingTarget),
+                livingSource.attackEntityFrom(MKDamageSource.causeIndirectMagicDamage(livingTarget, livingTarget),
                         Math.min(event.getAmount(), 4.0f * effect.getAmplifier()));
 
             }

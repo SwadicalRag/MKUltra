@@ -1,6 +1,7 @@
 package com.chaosbuffalo.mkultra.effects.spells;
 
 import com.chaosbuffalo.mkultra.MKUltra;
+import com.chaosbuffalo.mkultra.core.BaseAbility;
 import com.chaosbuffalo.mkultra.effects.SpellCast;
 import com.chaosbuffalo.mkultra.effects.SpellPotionBase;
 import com.chaosbuffalo.mkultra.core.abilities.Yank;
@@ -25,12 +26,8 @@ public class YankPotion extends SpellPotionBase {
         event.getRegistry().register(INSTANCE.finish());
     }
 
-    public static SpellCast Create(Entity source, EntityLivingBase target) {
-        return INSTANCE.newSpellCast(source).setTarget(target);
-    }
-
-    public static SpellCast Create(Entity source){
-        return INSTANCE.newSpellCast(source);
+    public static SpellCast Create(BaseAbility ability, Entity source, EntityLivingBase target) {
+        return INSTANCE.newSpellCast(source, ability).setTarget(target);
     }
 
     private YankPotion() {

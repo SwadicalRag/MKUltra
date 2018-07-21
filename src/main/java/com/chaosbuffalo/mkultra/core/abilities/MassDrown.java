@@ -66,7 +66,7 @@ public class MassDrown extends BaseAbility {
             }
 
             pData.startAbility(this);
-            SpellCast drown = DrownPotion.Create(entity);
+            SpellCast drown = DrownPotion.Create(this, entity);
 
             AreaEffectBuilder.Create(entity, targetEntity)
                     .instant()

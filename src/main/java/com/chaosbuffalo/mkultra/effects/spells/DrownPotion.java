@@ -1,8 +1,8 @@
 package com.chaosbuffalo.mkultra.effects.spells;
 
 import com.chaosbuffalo.mkultra.MKUltra;
+import com.chaosbuffalo.mkultra.core.BaseAbility;
 import com.chaosbuffalo.mkultra.core.MKDamageSource;
-import com.chaosbuffalo.mkultra.core.abilities.Drown;
 import com.chaosbuffalo.mkultra.effects.SpellCast;
 import com.chaosbuffalo.mkultra.effects.SpellPeriodicPotionBase;
 import com.chaosbuffalo.mkultra.fx.ParticleEffects;
@@ -28,8 +28,8 @@ public class DrownPotion extends SpellPeriodicPotionBase {
         event.getRegistry().register(INSTANCE.finish());
     }
 
-    public static SpellCast Create(Entity source) {
-        return INSTANCE.newSpellCast(source);
+    public static SpellCast Create(BaseAbility ability, Entity source) {
+        return INSTANCE.newSpellCast(source, ability);
     }
 
     private DrownPotion() {
@@ -49,7 +49,7 @@ public class DrownPotion extends SpellPeriodicPotionBase {
 
     @Override
     public void doEffect(Entity source, Entity indirectSource, EntityLivingBase target, int amplifier, SpellCast cast) {
-        target.attackEntityFrom(MKDamageSource.causeIndirectMagicDamage(new Drown().getAbilityId(),
+        target.attackEntityFrom(MKDamageSource.causeIndirectMagicDamage(cast,
                 source, indirectSource), amplifier * 2.0f);
         MKUltra.packetHandler.sendToAllAround(
                 new ParticleEffectSpawnPacket(
@@ -58,7 +58,6 @@ public class DrownPotion extends SpellPeriodicPotionBase {
                         target.posX, target.posY + 1.0f,
                         target.posZ, .75, 1.0, .75, 1.5,
                         target.getLookVec()),
-                target.dimension, target.posX,
-                target.posY, target.posZ, 50.0f);
+                target, 50.0f);
     }
 }

@@ -38,7 +38,7 @@ public class EntityGeyserProjectile extends EntityBaseProjectile {
     @Override
     protected boolean onGroundProc(EntityLivingBase caster, int amplifier) {
         if (!this.world.isRemote && caster != null) {
-            SpellCast geyser = GeyserPotion.Create(caster, 0.0f, 10.0f);
+            SpellCast geyser = GeyserPotion.Create(getAbility(), caster, 0.0f, 10.0f);
 
             AreaEffectBuilder.Create(caster, this)
                     .spellCast(geyser, amplifier, Targeting.TargetType.ALL)
