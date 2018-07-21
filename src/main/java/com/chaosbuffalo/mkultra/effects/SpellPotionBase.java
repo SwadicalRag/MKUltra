@@ -1,5 +1,6 @@
 package com.chaosbuffalo.mkultra.effects;
 
+import com.chaosbuffalo.mkultra.core.BaseAbility;
 import com.chaosbuffalo.mkultra.log.Log;
 import com.chaosbuffalo.targeting_api.Targeting;
 import net.minecraft.client.Minecraft;
@@ -140,6 +141,10 @@ public abstract class SpellPotionBase extends Potion {
 
     public SpellCast newSpellCast(Entity caster) {
         return SpellCast.create(this, caster);
+    }
+
+    public SpellCast newSpellCast(Entity caster, BaseAbility ability) {
+        return newSpellCast(caster).linkAbility(ability);
     }
 
     @Override

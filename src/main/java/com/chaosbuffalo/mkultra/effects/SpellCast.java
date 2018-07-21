@@ -172,4 +172,9 @@ public class SpellCast implements IAbilitySource {
     public void setAbility(BaseAbility ability) {
         this.ability = ability;
     }
+
+    protected SpellCast linkAbility(BaseAbility ability) {
+        setAbility(ability);
+        return this;
+    }
 }
