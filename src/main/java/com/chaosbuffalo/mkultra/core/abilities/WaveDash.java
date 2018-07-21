@@ -87,7 +87,7 @@ public class WaveDash extends BaseAbility {
                     damage = damage * 2.0f;
                 }
             }
-            entHit.attackEntityFrom(MKDamageSource.causeIndirectMagicDamage(getAbilityId(), entity, entity), damage);
+            entHit.attackEntityFrom(MKDamageSource.causeIndirectMagicDamage(this, entity, entity), damage);
             pData.setCooldown(getAbilityId(), Math.max(0, pData.getCurrentAbilityCooldown(getAbilityId()) - 2));
             if (entHit instanceof EntityLivingBase){
                 EntityLivingBase livEnt = (EntityLivingBase) entHit;

@@ -17,9 +17,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 @Mod.EventBusSubscriber(modid = MKUltra.MODID)
 public class InstantIndirectMagicDamagePotion extends SpellPotionBase {
 
-    public static ResourceLocation INDIRECT_MAGIC_DMG_ABILITY_ID = new ResourceLocation(
-            MKUltra.MODID, "ability.instant_indirect_magic_damage");
-
     public static final InstantIndirectMagicDamagePotion INSTANCE = new InstantIndirectMagicDamagePotion();
 
     @SubscribeEvent
@@ -44,7 +41,6 @@ public class InstantIndirectMagicDamagePotion extends SpellPotionBase {
     @Override
     public void doEffect(Entity applier, Entity caster, EntityLivingBase target, int amplifier, SpellCast cast) {
         float damage = cast.getScaledValue(amplifier);
-        target.attackEntityFrom(MKDamageSource.causeIndirectMagicDamage(INDIRECT_MAGIC_DMG_ABILITY_ID,
-                applier, caster), damage);
+        target.attackEntityFrom(MKDamageSource.causeIndirectMagicDamage(cast, applier, caster), damage);
     }
 }

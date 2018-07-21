@@ -112,6 +112,9 @@ public class SpellTriggers {
 
         if (isMKUltraAbilityDamage(source)) {
             MKDamageSource mkSource = (MKDamageSource) source;
+
+            Log.info("mkdamage %b %s", mkSource.isAbility(), mkSource.getAbilityId().toString());
+
             // Handle 'melee damage' abilities
             if (mkSource.isMeleeAbility()) {
                 handleMelee(event, source, livingTarget, playerSource, sourceData, false);

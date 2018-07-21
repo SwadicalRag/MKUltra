@@ -43,11 +43,11 @@ public class MKDamageSource extends EntityDamageSourceIndirect {
     }
 
     public boolean isMagicAbility() {
-        return isAbility() && ability.getAbilityId().equals(InstantIndirectMagicDamagePotion.INDIRECT_MAGIC_DMG_ABILITY_ID);
+        return isAbility() && isMagicDamage();
     }
 
     public boolean isMeleeAbility() {
-        return isAbility() && ability.getAbilityId().equals(MeleeDamagePotion.INDIRECT_DMG_ABILITY_ID);
+        return isAbility() && !isMagicDamage();
     }
 
     public static DamageSource causeIndirectMagicDamage(ResourceLocation abilityId, Entity source,
