@@ -67,7 +67,7 @@ public class CrescentSlash extends BaseAbility {
             pData.startAbility(this);
 
             // What to do for each target hit
-            SpellCast damage = MeleeDamagePotion.Create(entity, BASE_DAMAGE, DAMAGE_SCALE);
+            SpellCast damage = MeleeDamagePotion.Create(this, entity, BASE_DAMAGE, DAMAGE_SCALE);
             SpellCast particlePotion = ParticlePotion.Create(entity,
                     EnumParticleTypes.SWEEP_ATTACK.getParticleID(),
                     ParticleEffects.CIRCLE_MOTION, false, new Vec3d(1.0, 1.0, 1.0),
