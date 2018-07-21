@@ -4,9 +4,6 @@ import com.chaosbuffalo.mkultra.GameConstants;
 import com.chaosbuffalo.mkultra.MKUltra;
 import com.chaosbuffalo.mkultra.core.BaseAbility;
 import com.chaosbuffalo.mkultra.core.IPlayerData;
-import com.chaosbuffalo.mkultra.effects.AreaEffectBuilder;
-import com.chaosbuffalo.mkultra.effects.SpellCast;
-import com.chaosbuffalo.mkultra.effects.spells.ParticlePotion;
 import com.chaosbuffalo.mkultra.effects.spells.ShieldingPotion;
 import com.chaosbuffalo.mkultra.fx.ParticleEffects;
 import com.chaosbuffalo.mkultra.network.packets.server.ParticleEffectSpawnPacket;
@@ -71,10 +68,14 @@ public class DesperateSurge extends BaseAbility {
             pData.startAbility(this);
             entity.getFoodStats().setFoodLevel(entity.getFoodStats().getFoodLevel() - (FOOD_COST + level * FOOD_SCALE));
             int duration = (BASE_DURATION + DURATION_SCALE * level) * GameConstants.TICKS_PER_SECOND;
-            entity.addPotionEffect(ShieldingPotion.Create(entity).setTarget(entity).toPotionEffect(
-                            duration, BASE_SHIELDING + level * SHIELDING_SCALE));
+
+            entity.addPotionEffect(ShieldingPotion.Create(this, entity)
+                    .setTarget(entity)
+                    .toPotionEffect(duration, BASE_SHIELDING + level * SHIELDING_SCALE));
             entity.addPotionEffect(new PotionEffect(MobEffects.SPEED, duration * 2, 2 + level));
+
             entity.heal(2.0f * level);
+
             Vec3d lookVec = entity.getLookVec();
             MKUltra.packetHandler.sendToAllAround(
                     new ParticleEffectSpawnPacket(
@@ -85,8 +86,6 @@ public class DesperateSurge extends BaseAbility {
                             lookVec),
                     entity, 50.0f);
         }
-        // What to do for each target hit
-
     }
 }
 

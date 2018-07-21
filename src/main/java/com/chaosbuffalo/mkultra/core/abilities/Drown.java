@@ -54,6 +54,7 @@ public class Drown extends BaseAbility {
         int level = pData.getLevelForAbility(getAbilityId());
         pData.startAbility(this);
         EntityDrownProjectile drownP = new EntityDrownProjectile(theWorld, entity);
+        drownP.setAbility(this);
         drownP.setAmplifier(level);
         drownP.shoot(entity, entity.rotationPitch, entity.rotationYaw, 0.0F, PROJECTILE_SPEED,
                 PROJECTILE_INACCURACY);

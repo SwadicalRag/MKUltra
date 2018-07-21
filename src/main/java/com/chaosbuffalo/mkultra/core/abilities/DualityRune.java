@@ -57,6 +57,7 @@ public class DualityRune extends BaseAbility {
         int level = pData.getLevelForAbility(getAbilityId());
         pData.startAbility(this);
         EntityDualityRuneProjectile projectile = new EntityDualityRuneProjectile(theWorld, entity);
+        projectile.setAbility(this);
         projectile.setAmplifier(level);
         projectile.shoot(entity, entity.rotationPitch,
                 entity.rotationYaw, 0.0F, PROJECTILE_SPEED, PROJECTILE_INACCURACY);
