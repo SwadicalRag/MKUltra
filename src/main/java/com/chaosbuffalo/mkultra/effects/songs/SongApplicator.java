@@ -30,6 +30,7 @@ public abstract class SongApplicator extends SongPotionBase {
             IPlayerData pData = MKUPlayerData.get(player);
             if (pData == null)
                 return;
+
             BaseAbility ability = ClassData.getAbility(BaseToggleAbility.getToggleAbilityIdForPotion(this));
 
             if (pData.getMana() >= ability.getManaCost(amplifier)) {
@@ -41,8 +42,10 @@ public abstract class SongApplicator extends SongPotionBase {
             getPotionsToApply(player, amplifier).forEach(player::addPotionEffect);
 
             for (SpellCast toCast : getSpellCasts(player)) {
+                toCast.link(cast);
                 player.addPotionEffect(toCast.setTarget(player).toPotionEffect(getPeriod(), amplifier));
             }
+
             MKUltra.packetHandler.sendToAllAround(
                     new ParticleEffectSpawnPacket(
                             EnumParticleTypes.NOTE.getParticleID(),
