@@ -69,7 +69,7 @@ public class FireArrow extends BaseAbility {
         arrow.setAbility(this);
         arrow.shoot(entity, entity.rotationPitch, entity.rotationYaw, 0.0F, 3.0F, 1.0F);
         arrow.setDamage(BASE_ARROW_DAMAGE + level * SCALE_ARROW_DAMAGE);
-        arrow.addSpellCast(FireArrowPotion.Create(entity, BASE_DAMAGE, DAMAGE_SCALE, 10.0f), 1);
+        arrow.addSpellCast(FireArrowPotion.Create(this, entity, BASE_DAMAGE, DAMAGE_SCALE, 10.0f), 1);
         arrow.pickupStatus = EntityArrow.PickupStatus.DISALLOWED;
         theWorld.spawnEntity(arrow);
 

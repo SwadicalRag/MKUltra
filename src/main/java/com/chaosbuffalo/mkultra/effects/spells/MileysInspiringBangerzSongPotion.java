@@ -2,6 +2,7 @@ package com.chaosbuffalo.mkultra.effects.spells;
 
 import com.chaosbuffalo.mkultra.GameConstants;
 import com.chaosbuffalo.mkultra.MKUltra;
+import com.chaosbuffalo.mkultra.core.BaseAbility;
 import com.chaosbuffalo.mkultra.effects.SpellCast;
 import com.chaosbuffalo.mkultra.effects.songs.SongApplicator;
 import net.minecraft.entity.Entity;
@@ -28,8 +29,8 @@ public class MileysInspiringBangerzSongPotion extends SongApplicator {
         event.getRegistry().register(INSTANCE.finish());
     }
 
-    public static SpellCast Create(Entity source) {
-        return INSTANCE.newSpellCast(source);
+    public static SpellCast Create(BaseAbility ability, Entity source) {
+        return INSTANCE.newSpellCast(source, ability);
     }
 
     private MileysInspiringBangerzSongPotion() {
@@ -38,9 +39,9 @@ public class MileysInspiringBangerzSongPotion extends SongApplicator {
     }
 
     @Override
-    public Set<SpellCast> getSpellCasts(Entity source) {
-        Set<SpellCast> ret = super.getSpellCasts(source);
-        ret.add(MileysInspiringBangerzPotion.Create(source));
+    public Set<SpellCast> getSpellCasts(Entity source, SpellCast applicatorCast) {
+        Set<SpellCast> ret = super.getSpellCasts(source, applicatorCast);
+        ret.add(MileysInspiringBangerzPotion.Create(applicatorCast.getAbility(), source));
         return ret;
     }
 

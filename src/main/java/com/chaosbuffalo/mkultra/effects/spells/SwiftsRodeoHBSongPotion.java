@@ -39,9 +39,9 @@ public class SwiftsRodeoHBSongPotion extends SongApplicator {
     }
 
     @Override
-    public Set<SpellCast> getSpellCasts(Entity source) {
-        Set<SpellCast> ret = super.getSpellCasts(source);
-        ret.add(SwiftsRodeoHBPotion.Create(source));
+    public Set<SpellCast> getSpellCasts(Entity source, SpellCast applicatorCast) {
+        Set<SpellCast> ret = super.getSpellCasts(source, applicatorCast);
+        ret.add(SwiftsRodeoHBPotion.Create(applicatorCast.getAbility(), source));
         return ret;
     }
 

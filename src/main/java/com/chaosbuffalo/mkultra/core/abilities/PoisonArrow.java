@@ -72,7 +72,7 @@ public class PoisonArrow extends BaseAbility {
         arrow.addEffect(new PotionEffect(MobEffects.POISON, 9 * GameConstants.TICKS_PER_SECOND, level, false, true));
         arrow.addEffect(new PotionEffect(MobEffects.SLOWNESS, 9 * GameConstants.TICKS_PER_SECOND, level + 2, false, true));
         if (level == 2){
-            arrow.addSpellCast(PoisonArrowPotion.Create(entity, 10.0f), level);
+            arrow.addSpellCast(PoisonArrowPotion.Create(this, entity, 10.0f), level);
         }
         arrow.pickupStatus = EntityArrow.PickupStatus.DISALLOWED;
         theWorld.spawnEntity(arrow);

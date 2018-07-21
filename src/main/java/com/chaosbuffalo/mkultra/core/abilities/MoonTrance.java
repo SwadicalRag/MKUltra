@@ -66,7 +66,7 @@ public class MoonTrance extends BaseAbility {
 
         // What to do for each target hit
         int duration = (BASE_DURATION + DURATION_SCALE * level) * GameConstants.TICKS_PER_SECOND;
-        SpellCast effect = MoonTrancePotion.Create(entity);
+        SpellCast effect = MoonTrancePotion.Create(this, entity);
         SpellCast particlePotion = ParticlePotion.Create(entity,
                 EnumParticleTypes.SPELL_MOB.getParticleID(),
                 ParticleEffects.SPHERE_MOTION, false, new Vec3d(1.0, 1.5, 1.0),

@@ -2,6 +2,7 @@ package com.chaosbuffalo.mkultra.effects.spells;
 
 import com.chaosbuffalo.mkultra.GameConstants;
 import com.chaosbuffalo.mkultra.MKUltra;
+import com.chaosbuffalo.mkultra.core.BaseAbility;
 import com.chaosbuffalo.mkultra.effects.AreaEffectBuilder;
 import com.chaosbuffalo.mkultra.effects.SpellCast;
 import com.chaosbuffalo.mkultra.effects.SpellPotionBase;
@@ -28,8 +29,8 @@ public class PoisonArrowPotion extends SpellPotionBase {
         event.getRegistry().register(INSTANCE.finish());
     }
 
-    public static SpellCast Create(Entity source, float range) {
-        return INSTANCE.newSpellCast(source).setFloat("range", range);
+    public static SpellCast Create(BaseAbility ability, Entity source, float range) {
+        return INSTANCE.newSpellCast(source, ability).setFloat("range", range);
     }
 
     private PoisonArrowPotion() {

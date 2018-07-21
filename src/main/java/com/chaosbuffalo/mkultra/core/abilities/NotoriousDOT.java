@@ -76,7 +76,7 @@ public class NotoriousDOT extends BaseToggleSetAbility {
     public void applyEffect(EntityPlayer entity, IPlayerData pData, World theWorld) {
 
         int level = pData.getLevelForAbility(getAbilityId());
-        entity.addPotionEffect(NotoriousDOTSongPotion.Create(entity).setTarget(entity)
+        entity.addPotionEffect(NotoriousDOTSongPotion.Create(this, entity).setTarget(entity)
                 .toPotionEffect(BASE_DURATION, level));
         Vec3d lookVec = entity.getLookVec();
         MKUltra.packetHandler.sendToAllAround(

@@ -21,7 +21,7 @@ public abstract class SongApplicator extends SongPotionBase {
 
     public Set<PotionEffect> getPotionsToApply(Entity source, int level) { return new HashSet<>(); }
 
-    public Set<SpellCast> getSpellCasts(Entity source) { return new HashSet<>(); }
+    public Set<SpellCast> getSpellCasts(Entity source, SpellCast applicatorCast) { return new HashSet<>(); }
 
     @Override
     public void doEffect(Entity source, Entity indirectSource, EntityLivingBase target, int amplifier, SpellCast cast) {
@@ -41,8 +41,7 @@ public abstract class SongApplicator extends SongPotionBase {
 
             getPotionsToApply(player, amplifier).forEach(player::addPotionEffect);
 
-            for (SpellCast toCast : getSpellCasts(player)) {
-                toCast.link(cast);
+            for (SpellCast toCast : getSpellCasts(player, cast)) {
                 player.addPotionEffect(toCast.setTarget(player).toPotionEffect(getPeriod(), amplifier));
             }
 

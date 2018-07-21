@@ -30,13 +30,13 @@ public class NotoriousDOTPotion extends SongEffect {
         event.getRegistry().register(INSTANCE.finish());
     }
 
-    public static SpellCast Create(Entity source) {
-        return INSTANCE.newSpellCast(source);
+    public static SpellCast Create(BaseAbility ability, Entity source) {
+        return INSTANCE.newSpellCast(source, ability);
     }
 
     @Override
     public AreaEffectBuilder prepareAreaEffect(SpellCast cast, Entity source, int level, AreaEffectBuilder builder) {
-        builder.spellCast(InstantIndirectMagicDamagePotion.Create(
+        builder.spellCast(InstantIndirectMagicDamagePotion.Create(cast.getAbility(),
                 source, NotoriousDOT.BASE_DAMAGE, NotoriousDOT.DAMAGE_SCALE),
                 level, Targeting.TargetType.ENEMY);
         return builder;

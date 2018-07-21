@@ -68,7 +68,7 @@ public class Ignite extends BaseAbility {
             targetEntity.attackEntityFrom(MKDamageSource.causeIndirectMagicDamage(this, entity, entity), BASE_DAMAGE + level * DAMAGE_SCALE);
 
             if (targetEntity.isBurning()){
-                SpellCast ignite = IgnitePotion.Create(entity, BASE_DAMAGE, DAMAGE_SCALE);
+                SpellCast ignite = IgnitePotion.Create(this, entity, BASE_DAMAGE, DAMAGE_SCALE);
                 SpellCast particle = ParticlePotion.Create(entity,
                         EnumParticleTypes.FLAME.getParticleID(),
                         ParticleEffects.SPHERE_MOTION, false, new Vec3d(1.0, 1.0, 1.0),

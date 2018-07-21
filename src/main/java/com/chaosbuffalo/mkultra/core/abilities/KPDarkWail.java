@@ -66,7 +66,7 @@ public class KPDarkWail extends BaseAbility {
         int level = pData.getLevelForAbility(getAbilityId());
 
         // What to do for each target hit
-        SpellCast damage = InstantIndirectMagicDamagePotion.Create(entity, BASE_DAMAGE, DAMAGE_SCALE);
+        SpellCast damage = InstantIndirectMagicDamagePotion.Create(this, entity, BASE_DAMAGE, DAMAGE_SCALE);
         SpellCast particle = ParticlePotion.Create(entity,
                 EnumParticleTypes.NOTE.getParticleID(),
                 ParticleEffects.CIRCLE_PILLAR_MOTION, false, new Vec3d(1.0, 1.0, 1.0),

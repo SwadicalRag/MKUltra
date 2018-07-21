@@ -25,7 +25,7 @@ public class FlameWavePotion extends SpellPotionBase {
     }
 
     public static SpellCast Create(BaseAbility ability, Entity source, float baseDamage, float scaling) {
-        return INSTANCE.newSpellCast(source).setScalingParameters(baseDamage, scaling);
+        return INSTANCE.newSpellCast(source, ability).setScalingParameters(baseDamage, scaling);
     }
 
     private FlameWavePotion() {

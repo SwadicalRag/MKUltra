@@ -55,7 +55,7 @@ public class MileysInspiringBangerz extends BaseToggleSetAbility {
     @Override
     public void applyEffect(EntityPlayer entity, IPlayerData pData, World theWorld) {
         int level = pData.getLevelForAbility(getAbilityId());
-        entity.addPotionEffect(MileysInspiringBangerzSongPotion.Create(entity).setTarget(entity)
+        entity.addPotionEffect(MileysInspiringBangerzSongPotion.Create(this, entity).setTarget(entity)
                 .toPotionEffect(BASE_DURATION, level));
         Vec3d lookVec = entity.getLookVec();
         MKUltra.packetHandler.sendToAllAround(

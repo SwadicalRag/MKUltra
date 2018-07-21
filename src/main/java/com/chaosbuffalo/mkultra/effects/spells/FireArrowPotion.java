@@ -2,6 +2,7 @@ package com.chaosbuffalo.mkultra.effects.spells;
 
 import com.chaosbuffalo.mkultra.GameConstants;
 import com.chaosbuffalo.mkultra.MKUltra;
+import com.chaosbuffalo.mkultra.core.BaseAbility;
 import com.chaosbuffalo.mkultra.effects.*;
 import com.chaosbuffalo.mkultra.fx.ParticleEffects;
 import com.chaosbuffalo.targeting_api.Targeting;
@@ -24,8 +25,8 @@ public class FireArrowPotion extends SpellPotionBase {
         event.getRegistry().register(INSTANCE.finish());
     }
 
-    public static SpellCast Create(Entity source, float baseDamage, float scaling, float range) {
-        return INSTANCE.newSpellCast(source)
+    public static SpellCast Create(BaseAbility ability, Entity source, float baseDamage, float scaling, float range) {
+        return INSTANCE.newSpellCast(source, ability)
                 .setScalingParameters(baseDamage, scaling)
                 .setFloat("range", range);
     }
