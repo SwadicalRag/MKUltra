@@ -36,7 +36,7 @@ public class SwiftsRodeoHBPotion extends SongEffect {
     }
 
     @Override
-    public AreaEffectBuilder prepareAreaEffect(Entity source, int level, AreaEffectBuilder builder){
+    public AreaEffectBuilder prepareAreaEffect(SpellCast cast, Entity source, int level, AreaEffectBuilder builder){
         builder.effect(new PotionEffect(MobEffects.SPEED, PERIOD, level), Targeting.TargetType.FRIENDLY);
         return builder;
     }

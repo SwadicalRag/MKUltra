@@ -34,7 +34,7 @@ public class MileysInspiringBangerzPotion extends SongEffect {
     }
 
     @Override
-    public AreaEffectBuilder prepareAreaEffect(Entity source, int level, AreaEffectBuilder builder){
+    public AreaEffectBuilder prepareAreaEffect(SpellCast cast, Entity source, int level, AreaEffectBuilder builder){
         builder.spellCast(ShieldingPotion.Create(source), PERIOD, level, Targeting.TargetType.FRIENDLY);
         builder.effect(new PotionEffect(MobEffects.RESISTANCE, PERIOD, level), Targeting.TargetType.FRIENDLY);
         builder.effect(new PotionEffect(MobEffects.REGENERATION, PERIOD, level), Targeting.TargetType.FRIENDLY);
