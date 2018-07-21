@@ -1,11 +1,10 @@
 package com.chaosbuffalo.mkultra.core.classes;
 
 import com.chaosbuffalo.mkultra.MKUltra;
+import com.chaosbuffalo.mkultra.core.ArmorClass;
 import com.chaosbuffalo.mkultra.core.BaseAbility;
 import com.chaosbuffalo.mkultra.core.BaseClass;
 import com.chaosbuffalo.mkultra.core.abilities.*;
-import com.chaosbuffalo.mkultra.core.ArmorClass;
-import com.chaosbuffalo.mkultra.effects.spells.UndertowPotion;
 import com.chaosbuffalo.mkultra.init.ModItems;
 import net.minecraft.item.Item;
 
@@ -25,7 +24,7 @@ public class WetWizard extends BaseClass {
 
     public WetWizard() {
         super(MKUltra.MODID, "class.wet_wizard", "Wet Wizard");
-        UndertowPotion.INSTANCE.setAbility(Undertow.INSTANCE);
+
     }
 
     @Override

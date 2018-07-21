@@ -24,6 +24,7 @@ public class Undertow extends BaseAbility {
 
     public Undertow() {
         super(MKUltra.MODID, "ability.undertow");
+        UndertowPotion.INSTANCE.setAbility(this);
     }
 
     @Override
