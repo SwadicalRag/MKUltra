@@ -59,7 +59,7 @@ public class Heal extends PlayerAbility {
     }
 
     @Override
-    protected boolean isValidTarget(EntityLivingBase caster, EntityLivingBase target) {
+    public boolean isValidTarget(EntityLivingBase caster, EntityLivingBase target) {
         return ClericHealPotion.INSTANCE.isValidTarget(getTargetType(), caster, target, !canSelfCast());
     }
 

@@ -67,14 +67,12 @@ public abstract class PlayerAbility extends IForgeRegistryEntry.Impl<PlayerAbili
         return ACTIVE_ABILITY;
     }
 
+    @Override
     public abstract Targeting.TargetType getTargetType();
 
+    @Override
     public boolean canSelfCast() {
         return false;
-    }
-
-    protected boolean isValidTarget(EntityLivingBase caster, EntityLivingBase target) {
-        return Targeting.isValidTarget(getTargetType(), caster, target, !canSelfCast());
     }
 
     public abstract int getManaCost(int currentRank);
@@ -91,40 +89,4 @@ public abstract class PlayerAbility extends IForgeRegistryEntry.Impl<PlayerAbili
     }
 
     public abstract void execute(EntityPlayer entity, IPlayerData data, World theWorld);
-
-    protected EntityLivingBase getSingleLivingTarget(EntityLivingBase caster, float distance) {
-        return getSingleLivingTarget(caster, distance, true);
-    }
-
-    protected List<EntityLivingBase> getTargetsInLine(EntityLivingBase caster, Vec3d from, Vec3d to, boolean checkValid, float growth) {
-        return RayTraceUtils.getEntitiesInLine(EntityLivingBase.class, caster, from, to, Vec3d.ZERO, growth,
-                e -> !checkValid || (e != null && isValidTarget(caster, e)));
-    }
-
-    protected EntityLivingBase getSingleLivingTarget(EntityLivingBase caster, float distance, boolean checkValid) {
-        return getSingleLivingTarget(EntityLivingBase.class, caster, distance, checkValid);
-    }
-
-    protected <E extends EntityLivingBase> E getSingleLivingTarget(Class<E> clazz, EntityLivingBase caster,
-                                                                    float distance, boolean checkValid) {
-        RayTraceResult lookingAt = RayTraceUtils.getLookingAt(clazz, caster, distance,
-                e -> !checkValid || (e != null && isValidTarget(caster, e)));
-
-        if (lookingAt != null && lookingAt.entityHit instanceof EntityLivingBase) {
-
-            if (checkValid && !isValidTarget(caster, (EntityLivingBase) lookingAt.entityHit)) {
-                return null;
-            }
-
-            return (E) lookingAt.entityHit;
-        }
-
-        return null;
-    }
-
-    @Nonnull
-    protected EntityLivingBase getSingleLivingTargetOrSelf(EntityLivingBase caster, float distance, boolean checkValid) {
-        EntityLivingBase target = getSingleLivingTarget(caster, distance, checkValid);
-        return target != null ? target : caster;
-    }
 }
