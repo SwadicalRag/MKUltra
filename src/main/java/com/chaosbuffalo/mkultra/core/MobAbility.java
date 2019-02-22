@@ -15,13 +15,14 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public abstract class MobAbility extends IForgeRegistryEntry.Impl<MobAbility> {
+public abstract class MobAbility extends IForgeRegistryEntry.Impl<MobAbility> implements IAbility {
 
 
     public MobAbility(String domain, String id) {
         this(new ResourceLocation(domain, id));
     }
 
+    @Override
     public ResourceLocation getAbilityId() {
         return getRegistryName();
     }
