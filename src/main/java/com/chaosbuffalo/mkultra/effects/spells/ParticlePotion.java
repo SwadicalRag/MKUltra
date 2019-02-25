@@ -4,6 +4,7 @@ import com.chaosbuffalo.mkultra.MKUltra;
 import com.chaosbuffalo.mkultra.effects.SpellCast;
 import com.chaosbuffalo.mkultra.effects.SpellPotionBase;
 import com.chaosbuffalo.mkultra.network.packets.ParticleEffectSpawnPacket;
+import com.chaosbuffalo.mkultra.fx.ParticleStyle;
 import com.chaosbuffalo.targeting_api.Targeting;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -28,6 +29,12 @@ public class ParticlePotion extends SpellPotionBase {
                                    double particleSpeed) {
         SpellCast cast = INSTANCE.newSpellCast(source);
         INSTANCE.setParameters(cast, particleId, motionType, includeSelf, radius, offsets, particleCount, particleData, particleSpeed);
+        return cast;
+    }
+
+    public static SpellCast Create(Entity source, ParticleStyle style, boolean includeSelf) {
+        SpellCast cast = INSTANCE.newSpellCast(source);
+        INSTANCE.setParameters(cast, style.getParticleID(), style.getMotionType(), includeSelf, style.getRadius(), style.getOffset(), style.getCount(), style.getData(), style.getSpeed());
         return cast;
     }
 

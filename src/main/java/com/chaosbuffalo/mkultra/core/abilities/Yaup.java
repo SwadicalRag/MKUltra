@@ -10,6 +10,7 @@ import com.chaosbuffalo.mkultra.core.PlayerAbility;
 import com.chaosbuffalo.mkultra.core.IPlayerData;
 import com.chaosbuffalo.mkultra.fx.ParticleEffects;
 import com.chaosbuffalo.mkultra.network.packets.ParticleEffectSpawnPacket;
+import com.chaosbuffalo.mkultra.fx.ParticleStyle;
 import com.chaosbuffalo.targeting_api.Targeting;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
@@ -54,6 +55,9 @@ public class Yaup extends PlayerAbility {
         return 4 + currentRank * 2;
     }
 
+    private ParticleStyle castStyle = new ParticleStyle(EnumParticleTypes.CRIT, ParticleEffects.SPHERE_MOTION, 50, 5, 0.5f, RADIUS_ONE, OFFSET_Y_ONE);
+    private ParticleStyle effStyle = new ParticleStyle(EnumParticleTypes.CRIT, ParticleEffects.SPHERE_MOTION, 50, 5, 0.5f, RADIUS_ONE, OFFSET_Y_ONE);
+
     @Override
     public void execute(EntityPlayer entity, IPlayerData pData, World theWorld) {
         pData.startAbility(this);
@@ -65,10 +69,7 @@ public class Yaup extends PlayerAbility {
 
         PotionEffect hasteEffect = new PotionEffect(MobEffects.HASTE, duration, level - 1, false, true);
         PotionEffect damageEffect = new PotionEffect(MobEffects.STRENGTH, duration, level - 1, false, true);
-        SpellCast particlePotion = ParticlePotion.Create(entity,
-                EnumParticleTypes.CRIT.getParticleID(),
-                ParticleEffects.SPHERE_MOTION, false, new Vec3d(1.0, 1.0, 1.0),
-                new Vec3d(0.0, 1.0, 0.0), 50, 5, 0.5);
+        SpellCast particlePotion = ParticlePotion.Create(entity, effStyle, false);
 
         AreaEffectBuilder.Create(entity, entity)
                 .effect(hasteEffect, getTargetType())
@@ -78,13 +79,6 @@ public class Yaup extends PlayerAbility {
                 .instant().color(16751360).radius(getDistance(level), true)
                 .spawn();
 
-        Vec3d lookVec = entity.getLookVec();
-        MKUltra.packetHandler.sendToAllAround(
-                new ParticleEffectSpawnPacket(
-                        EnumParticleTypes.CRIT.getParticleID(),
-                        ParticleEffects.SPHERE_MOTION, 50, 5,
-                        entity.posX, entity.posY + 1.0,
-                        entity.posZ, 1.0, 1.0, 1.0, 0.5,
-                        lookVec), entity, 50.0f);
+        performCastAnimation(castStyle, entity, entity.getLookVec());
     }
 }

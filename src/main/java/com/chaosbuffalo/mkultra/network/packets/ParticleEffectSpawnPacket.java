@@ -1,8 +1,10 @@
 package com.chaosbuffalo.mkultra.network.packets;
 
 import com.chaosbuffalo.mkultra.fx.ParticleEffects;
+import com.chaosbuffalo.mkultra.fx.ParticleStyle;
 import com.chaosbuffalo.mkultra.network.MessageHandler;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -58,14 +60,25 @@ public class ParticleEffectSpawnPacket implements IMessage {
                 headingVec.x, headingVec.y, headingVec.z);
     }
 
-    public ParticleEffectSpawnPacket(int particleID, int motionType, int count, int data,
-                                     Vec3d posVec,
-                                     double radiusX, double radiusY, double radiusZ,
-                                     double speed, Vec3d headingVec) {
+    public ParticleEffectSpawnPacket(int particleID,
+                                     int motionType,
+                                     int count,
+                                     int data,
+                                     Vec3d pos,
+                                     Vec3d radius,
+                                     float speed,
+                                     Vec3d headingVec) {
         this(particleID, motionType, count, data,
-                posVec.x, posVec.y, posVec.z,
-                radiusX, radiusY, radiusZ, speed,
+                pos.x, pos.y, pos.z,
+                radius.x, radius.y, radius.z, speed,
                 headingVec.x, headingVec.y, headingVec.z);
+    }
+
+    public ParticleEffectSpawnPacket(ParticleStyle style, EntityLivingBase entity, Vec3d headingVec) {
+        this(style.getParticleID(), style.getMotionType(), style.getCount(), style.getData(),
+                entity.getPositionVector().add(style.getOffset()),
+                style.getRadius(), style.getSpeed(),
+                headingVec);
     }
 
     @Override

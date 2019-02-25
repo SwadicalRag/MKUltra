@@ -1,6 +1,9 @@
 package com.chaosbuffalo.mkultra.core;
 
 import com.chaosbuffalo.mkultra.GameConstants;
+import com.chaosbuffalo.mkultra.MKUltra;
+import com.chaosbuffalo.mkultra.fx.ParticleStyle;
+import com.chaosbuffalo.mkultra.network.packets.ParticleEffectSpawnPacket;
 import com.chaosbuffalo.mkultra.utils.RayTraceUtils;
 import com.chaosbuffalo.targeting_api.Targeting;
 import net.minecraft.client.resources.I18n;
@@ -130,5 +133,15 @@ public abstract class PlayerAbility extends IForgeRegistryEntry.Impl<PlayerAbili
     protected EntityLivingBase getSingleLivingTargetOrSelf(EntityLivingBase caster, float distance, boolean checkValid) {
         EntityLivingBase target = getSingleLivingTarget(caster, distance, checkValid);
         return target != null ? target : caster;
+    }
+
+
+    protected Vec3d RADIUS_P25 = new Vec3d(0.25f, 0.25f, 0.25f);
+    protected Vec3d RADIUS_ONE = new Vec3d(1, 1, 1);
+    protected Vec3d OFFSET_Y_ONE = new Vec3d(0, 1, 0);
+
+    protected void performCastAnimation(ParticleStyle style, EntityLivingBase entity, Vec3d headingVec) {
+        MKUltra.packetHandler.sendToAllAround(new ParticleEffectSpawnPacket(style, entity, headingVec),
+                entity, 50.0f);
     }
 }
