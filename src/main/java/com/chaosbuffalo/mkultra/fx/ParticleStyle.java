@@ -49,4 +49,48 @@ public class ParticleStyle {
     public Vec3d getOffset() {
         return offset;
     }
+
+    public static class Builder {
+        private EnumParticleTypes particleID;
+        private int motionType;
+        private int count;
+        private int data;
+        private float speed;
+        private Vec3d radius;
+        private Vec3d offset;
+
+        public Builder(EnumParticleTypes particleID) {
+            this.particleID = particleID;
+        }
+
+        public Builder motion(int motionType, int data) {
+            this.motionType = motionType;
+            this.data = data;
+            return this;
+        }
+
+        public Builder count(int count) {
+            this.count = count;
+            return this;
+        }
+
+        public Builder speed(float speed) {
+            this.speed = speed;
+            return this;
+        }
+
+        public Builder radius(Vec3d radius) {
+            this.radius = radius;
+            return this;
+        }
+
+        public Builder offset(Vec3d offset) {
+            this.offset = offset;
+            return this;
+        }
+
+        public ParticleStyle build() {
+            return new ParticleStyle(particleID, motionType, count, data, speed, radius, offset);
+        }
+    }
 }

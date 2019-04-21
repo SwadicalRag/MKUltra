@@ -141,7 +141,6 @@ public abstract class PlayerAbility extends IForgeRegistryEntry.Impl<PlayerAbili
     protected Vec3d OFFSET_Y_ONE = new Vec3d(0, 1, 0);
 
     protected void performCastAnimation(ParticleStyle style, EntityLivingBase entity, Vec3d headingVec) {
-        MKUltra.packetHandler.sendToAllAround(new ParticleEffectSpawnPacket(style, entity, headingVec),
-                entity, 50.0f);
+        MKUltra.packetHandler.sendToAllAround(new ParticleEffectSpawnPacket(style, entity, headingVec), entity, 50.0f);
     }
 }

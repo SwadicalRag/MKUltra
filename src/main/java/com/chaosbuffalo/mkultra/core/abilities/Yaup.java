@@ -55,8 +55,16 @@ public class Yaup extends PlayerAbility {
         return 4 + currentRank * 2;
     }
 
-    private ParticleStyle castStyle = new ParticleStyle(EnumParticleTypes.CRIT, ParticleEffects.SPHERE_MOTION, 50, 5, 0.5f, RADIUS_ONE, OFFSET_Y_ONE);
-    private ParticleStyle effStyle = new ParticleStyle(EnumParticleTypes.CRIT, ParticleEffects.SPHERE_MOTION, 50, 5, 0.5f, RADIUS_ONE, OFFSET_Y_ONE);
+    private ParticleStyle castStyle = new ParticleStyle.Builder(EnumParticleTypes.CRIT)
+            .motion(ParticleEffects.SPHERE_MOTION, 5).count(50)
+            .speed(0.5f)
+            .radius(RADIUS_ONE).offset(OFFSET_Y_ONE)
+            .build();
+    private ParticleStyle effStyle = new ParticleStyle.Builder(EnumParticleTypes.CRIT)
+            .motion(ParticleEffects.SPHERE_MOTION, 5).count(50)
+            .speed(0.5f)
+            .radius(RADIUS_ONE).offset(OFFSET_Y_ONE)
+            .build();
 
     @Override
     public void execute(EntityPlayer entity, IPlayerData pData, World theWorld) {
