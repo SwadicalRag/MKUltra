@@ -53,7 +53,13 @@ public class Yank extends PlayerAbility {
         return currentRank * 2;
     }
 
-    private ParticleStyle castStyle = new ParticleStyle(EnumParticleTypes.SPELL_INSTANT, ParticleEffects.DIRECTED_SPOUT, 50, 1, 5.0f, RADIUS_P25, OFFSET_Y_ONE);
+    private ParticleStyle castStyle = new ParticleStyle.Builder(EnumParticleTypes.SPELL_INSTANT)
+            .motion(ParticleEffects.DIRECTED_SPOUT, 1)
+            .count(50)
+            .speed(5.0f)
+            .radius(RADIUS_P25)
+            .offset(OFFSET_Y_ONE)
+            .build();
 
     @Override
     public void execute(EntityPlayer entity, IPlayerData pData, World theWorld) {
