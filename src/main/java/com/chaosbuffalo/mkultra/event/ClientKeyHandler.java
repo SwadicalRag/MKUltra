@@ -101,7 +101,7 @@ public class ClientKeyHandler {
 
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public void onMouseEvent(InputEvent.MouseInputEvent event) {
+    public static void onMouseEvent(InputEvent.MouseInputEvent event) {
         ClientKeyHandler.onInputEvent(event);
     }
 
