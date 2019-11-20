@@ -502,8 +502,8 @@ public class PlayerData implements IPlayerData {
             setTotalMana(0);
             setManaRegen(0);
             setHealthRegen(0);
-            setHealth(Math.min(20, this.player.getHealth()));
             setTotalHealth(20);
+            setHealth(Math.min(getTotalHealth(), this.player.getHealth()));
             if (doTalents) {
                 removeTalents();
             }
@@ -519,7 +519,7 @@ public class PlayerData implements IPlayerData {
             setTotalMana(newTotalMana);
             setMana(getMana()); // Refresh after changing total mana
             setTotalHealth(newTotalHealth);
-            setHealth(Math.min(newTotalHealth, this.player.getHealth()));
+            setHealth(Math.min(getTotalHealth(), this.player.getHealth()));
             setManaRegen(newManaRegen);
             setHealthRegen(0);
             if (doTalents) {
