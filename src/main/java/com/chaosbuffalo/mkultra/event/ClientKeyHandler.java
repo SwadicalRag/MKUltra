@@ -55,9 +55,7 @@ public class ClientKeyHandler {
         return (float) GameConstants.GLOBAL_COOLDOWN_TICKS / GameConstants.TICKS_PER_SECOND;
     }
 
-    @SideOnly(Side.CLIENT)
-    @SubscribeEvent
-    public static void onKeyEvent(InputEvent.KeyInputEvent event) {
+    public static void onInputEvent(InputEvent event) {
         EntityPlayer player = Minecraft.getMinecraft().player;
         if (player == null)
             return;
@@ -93,6 +91,18 @@ public class ClientKeyHandler {
                 }
             }
         }
+    }
+
+    @SideOnly(Side.CLIENT)
+    @SubscribeEvent
+    public static void onKeyEvent(InputEvent.KeyInputEvent event) {
+        ClientKeyHandler.onInputEvent(event);
+    }
+
+    @SideOnly(Side.CLIENT)
+    @SubscribeEvent
+    public void onMouseEvent(InputEvent.MouseInputEvent event) {
+        ClientKeyHandler.onInputEvent(event);
     }
 
     @SubscribeEvent
