@@ -75,7 +75,7 @@ public class ClientKeyHandler {
 
             for (int i = 0; i < abilityBinds.length; i++) {
                 KeyBinding bind = abilityBinds[i];
-                if (!bind.isKeyDown()) {
+                if (!bind.isPressed()) {
                     continue;
                 }
 
